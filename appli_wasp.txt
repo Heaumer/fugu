@@ -1,0 +1,38 @@
+Conducteur : Proposer un trajet
+Il entre les coordonnées qui sont enr dans la page.
+Affichage de la carte GMaps
+
+Conducteur : Gestion des trajets
+Liste de trajets 
+Accès à la déclaration d'un trajet et suppression
+Modif
+
+Passager : Chercher un trajet
+Il entre les coordonnées et affichage des enregistrements
+Consultation des trajets et inscription
+
+index : fugu
+	inscription / connexion
+	description concept
+	
+inscription
+	données user
+	
+gestion
+	liste des trajets conducteur et passager compris
+	
+proposer_trajet
+	map + champs pour la déclaration du trajet (points A et B) + description eventuelle
+	affichage dyn de la durée et de la distance
+	
+chercher_trajet
+	map + formulaire (points A et B)
+	
+
+BD : SQLite
+	User : username, passwd (SHA3), email
+	Trajet : idTrajet, owner, depart, arrivee, heureDepart, heureArrive, temps, distance
+	Passager : idTrajet, username
+	
+	
+	
