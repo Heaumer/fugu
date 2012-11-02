@@ -1,0 +1,52 @@
+index
+demander afnarel logiciel
+
+Utilisateur:
+	créer/supprimer compte
+
+Créer un trajet		-> conducteur
+	page avec carte, entre coordonnées, enregistre dans la bdd.
+	liste des trajets modifiables/suppression modification
+Chercher un trajet	-> passager
+	afficher enregistrements,
+	chercher un trajet,
+	s'enregistrer sur un trajet,
+
+Listes pages:
+index:
+	Fugu
+	inscription/connexion.
+	présentation du site.
+
+inscription:
+	données utilisateurs (voir plus bas):
+
+gestion
+	liste de trajets par lesquels l'utilisateur est impliqué.
+
+proposer trajet:
+	map + formulaire pour décrire trajet (A->B) + description
+	affichage dynamique durée/distance trajet.
+
+chercher trajet:
+	map + formulaire point A, B.
+	liste trajets, +réserver trajet.
+
+BDD sqlite:
+	User:
+		-> Username (id)
+		-> Passwd (SHA3)
+		-> Email
+
+	Trajet:
+		-> id
+		-> Date/heure départ
+		-> Départ
+		-> Arrivée
+#		-> Temps		| calculé par
+#		-> Distance		| google maps
+		-> Id conducteur
+
+	Passager:
+		-> id trajet
+		-> id passager
