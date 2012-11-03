@@ -1,3 +1,45 @@
+<?php
+
+	include_once 'inc/route.php';
+
+	if (isset($_SESSION['connected'])) {
+	
+		if ($_SESSION['connected'] == false) {
+			header('Location: index.php');
+			
+		} else {
+		
+			if (isset($_POST['action'])) {
+			
+				if (strcmp($_POST['action'], "proposer") == 0) {
+					$startPoint = $_POST['adresseA'];
+					$endPoint = $_POST['adresseB'];
+					$distance = $_POST['distanceTotale'];
+					$temps = $_POST['tempsTotal'];
+					$description = $_POST['description'];
+				}
+		
+				$db = NULL;
+				try {
+					/* be sure BOTH .db file and sql directory have rw perm */
+					$db = new PDO('sqlite:sql/app.db');
+				} catch(PDOException $e) {
+					echo 'cannot load db';
+					exit;
+				}
+		
+				if (enregistrer_trajet("toto", $startPoint, $endPoint ,$distance , $temps, $description, $db)) {
+					header('Location: user.php');
+				}
+			}
+		}
+	
+	} else {
+		header('Location: index.php');
+	}
+	
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,20 +57,26 @@
 	<div id="carte" style="width: 550px; height: 500px;"></div>
 
 	<div id="informations">
-		<h3>D&eacute;part</h3>
-		<div id="depart">
-			<p>Coordonn&eacute;es : ( <span id="latA"></span> , <span id="longA"></span> )</p>
-			<p>Adresse<input size="30" onChange="changerPoint(this, 'depart');" type="text" id="adresseA" value="" /></p>
-		</div>
-		<h3>Arriv&eacute;e</h3>
-		<div id="arrivee">
-			<p>Coordonn&eacute;es : ( <span id="latB"></span> , <span id="longB"></span> )</p>
-			<p>Adresse<input size="30" onChange="changerPoint(this, 'arrivee');" type="text" id="adresseB" value="" /></p>
-		</div>
-		<h3>Distance totale</h3>
-		<p><span id="distanceTotale"></span></p>
-		<h3>Temps</h3>
-		<p><span id="tempsTotal"></span></p>
+		<form action="#" method="post">
+			<h4>D&eacute;part</h4>
+			<div id="depart">
+				<p>Coordonn&eacute;es : ( <span id="latA"></span> , <span id="longA"></span> )</p>
+				<p>Adresse<input size="30" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
+			</div>
+			<h4>Arriv&eacute;e</h4>
+			<div id="arrivee">
+				<p>Coordonn&eacute;es : ( <span id="latB"></span> , <span id="longB"></span> )</p>
+				<p>Adresse<input size="30" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
+			</div>
+			<p><strong>Distance totale : </strong><span id="distanceTotale"></span></p>
+			<input type="hidden" name="distanceTotale" id="dT" value="" />
+			<p><strong>Temps : </strong><span id="tempsTotal"></span></p>
+			<input type="hidden" name="tempsTotal" id="tT" value="" />
+			<p><strong>Description</strong>
+			<textarea rows="4" cols="40" name="description"></textarea></p>
+			<input type="submit" value="Proposer" />
+			<input type="hidden" name="action" value="proposer" />
+		</form>
 	</div>
 
 <?php include('static/footer.html'); ?>

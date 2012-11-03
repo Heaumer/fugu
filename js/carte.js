@@ -42,7 +42,9 @@ function calculerDistanceEtTemps() {
 	total = Math.floor(total / 10) / 100;
 	temps = Math.floor(temps / 60); // minutes
 	document.getElementById("distanceTotale").innerHTML = total + " km";
+	document.getElementById("dT").value = total;
 	document.getElementById("tempsTotal").innerHTML = temps + " min";
+	document.getElementById("tT").value = temps;
 }
 
 function mettreAJourInputs() {
