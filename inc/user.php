@@ -8,14 +8,10 @@
 					name	= :name
 				AND	passwd	= :passwd");
 
-		$stmt->execute(array(':name' => $name, ':passwd' => $passwd));
+		$stmt->execute(array(':name' => $name,
+			':passwd' => $passwd));
 
-		/*
-		 * can't do return !empty($stmt->fetch()):
-		 * « PHP Fatal error:  Can't use method return value in write context »
-		 */
 		$r = $stmt->fetch();
-
 		return !empty($r);
 	}
 
