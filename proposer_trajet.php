@@ -38,19 +38,9 @@
 		header('Location: index.php');
 	}
 	
+	include('static/header_proposition_trajet.html');
+	
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Proposer un trajet</title>
-	<meta charset="utf-8" />
-	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-	<script src="js/carte.js" type="text/javascript"></script>
-	<link rel="stylesheet" media="screen" href="css/carte.css" type="text/css"/>
-</head>
-
-<body onload="chargerCarte();">
 
 	<h1>Proposer un trajet</h1>
 
