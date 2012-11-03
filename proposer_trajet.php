@@ -27,6 +27,8 @@
 		</div>
 		<h3>Distance totale</h3>
 		<p><span id="distanceTotale"></span></p>
+		<h3>Temps</h3>
+		<p><span id="tempsTotal"></span></p>
 	</div>
 
 <?php include('static/footer.html'); ?>

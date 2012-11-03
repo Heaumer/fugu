@@ -26,19 +26,23 @@ function chargerCarte() {
 
 }
 
-function calculerDistance() {
+function calculerDistanceEtTemps() {
 	
 	var total = 0;
+	var temps = 0; // secondes
 	
 	var resultat = directionsRenderer.getDirections();
 	var route = resultat.routes[0];
 	
 	for (i = 0; i < route.legs.length; i++) {
 		total += route.legs[i].distance.value;
+		temps += route.legs[i].duration.value;
 	}
 	
 	total = Math.floor(total / 10) / 100;
+	temps = Math.floor(temps / 60); // minutes
 	document.getElementById("distanceTotale").innerHTML = total + " km";
+	document.getElementById("tempsTotal").innerHTML = temps + " min";
 }
 
 function mettreAJourInputs() {
@@ -68,11 +72,11 @@ function init() {
 			
 			// Ajout du Listener
 			google.maps.event.addListener(directionsRenderer, "directions_changed", function() {
-				calculerDistance();
+				calculerDistanceEtTemps();
 				mettreAJourInputs();
 			});
 			
-			calculerDistance();
+			calculerDistanceEtTemps();
 			mettreAJourInputs();
 		}
 	});
