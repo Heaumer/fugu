@@ -1,0 +1,38 @@
+html {
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   width: 50%;
+   margin: auto;
+   margin-top: 1%;
+   margin-bottom: 1%;
+   padding:3%;
+}
+
+.login_box h2 {
+   color: #4F4F4F;
+}
+
+.login_box {
+   width: 80%;
+   border: 3px outset;
+   margin:auto;
+   margin-bottom: 5%;
+   padding:5% 5%;
+   background-color:#CDC0B0;
+}
+
+#header {
+   color:#8B0000;
+   text-align: center;
+}
+
+#footer {
+   text-align: center;
+}
+
+#fugu {
+	text-align: center;
+}
