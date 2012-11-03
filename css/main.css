@@ -4,7 +4,7 @@ html {
 }
 
 body {
-   width: 50%;
+   width: 70%;
    margin: auto;
    margin-top: 1%;
    margin-bottom: 1%;
@@ -16,7 +16,7 @@ body {
 }
 
 .login_box, .register_box {
-   width: 80%;
+   width: 50%;
    border: 3px outset;
    margin:auto;
    margin-bottom: 5%;
@@ -33,6 +33,35 @@ body {
    text-align: center;
 }
 
-#fugu {
+#banniere {
+	width: 80%;
+	height: 150px;
+	margin: auto;
+	background-image:url("../imgs/fugu_small.jpg");
+	background-repeat: repeat-x;
 	text-align: center;
+}
+
+#menu {
+   width: 80%;
+   height: 30px;
+   margin: auto;
+   margin-top: 20px;
+   border: 3px outset;
+   background-color:#CDC0B0;
+}
+
+.liens {
+    width: 45%;
+    margin: 3px 3px 3px 3px;
+    text-align: center;
+    float: left;
+    font-size : 20px;
+    font-weight : bold;
+    
+}
+
+.liens a {
+    text-decoration: none;
+    color:#4F4F4F;
 }
