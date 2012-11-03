@@ -2,7 +2,7 @@
 
 	include_once 'inc/route.php';
 
-	if (isset($_SESSION['connected'])) {
+	if (isset($_SESSION['connected']) && $_SESSION['user']) {
 	
 		if ($_SESSION['connected'] == false) {
 			header('Location: index.php');
@@ -12,11 +12,11 @@
 			if (isset($_POST['action'])) {
 			
 				if (strcmp($_POST['action'], "proposer") == 0) {
-					$startPoint = $_POST['adresseA'];
-					$endPoint = $_POST['adresseB'];
-					$distance = $_POST['distanceTotale'];
-					$temps = $_POST['tempsTotal'];
-					$description = $_POST['description'];
+					$startPoint = htmlspecialchars($_POST['adresseA'], ENT_QUOTES);
+					$endPoint = htmlspecialchars($_POST['adresseB'], ENT_QUOTES);
+					$distance = htmlspecialchars($_POST['distanceTotale'], ENT_QUOTES);
+					$temps = htmlspecialchars($_POST['tempsTotal'], ENT_QUOTES);
+					$description = htmlspecialchars($_POST['description'], ENT_QUOTES);
 				}
 		
 				$db = NULL;
@@ -28,7 +28,7 @@
 					exit;
 				}
 		
-				if (enregistrer_trajet("toto", $startPoint, $endPoint ,$distance , $temps, $description, $db)) {
+				if (enregistrer_trajet($_SESSION['user'], $startPoint, $endPoint ,$distance , $temps, $description, $db)) {
 					header('Location: user.php');
 				}
 			}
