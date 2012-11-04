@@ -1,13 +1,13 @@
 #carte {
-	margin: 10px;
+	margin: 2%;
 	float: left;
-	width: 30%;
+	width: 46%;
 }
 
 #informations {
-	margin: 10px;
+	margin: 2%;
 	float: right;
-	width: 30%;
+	width: 46%;
 }
 
 #depart, #arrivee {
@@ -21,4 +21,8 @@
 
 #adresseA, #adresseB {
 	margin-left: 10px;
+}
+
+#footer {
+	clear: both;
 }
