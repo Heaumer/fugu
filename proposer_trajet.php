@@ -42,21 +42,23 @@
 	
 ?>
 
-	<h1>Proposer un trajet</h1>
+	<div id="header">
+		<h1>Proposer un trajet</h1>
+	</div>
 
 	<div id="carte" style="width: 550px; height: 500px;"></div>
 
 	<div id="informations">
 		<form action="#" method="post">
-			<h4>D&eacute;part</h4>
+			<h3>D&eacute;part</h3>
 			<div id="depart">
 				<p>Coordonn&eacute;es : ( <span id="latA"></span> , <span id="longA"></span> )</p>
-				<p>Adresse<input size="30" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
+				<p>Adresse<input size="35" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
 			</div>
-			<h4>Arriv&eacute;e</h4>
+			<h3>Arriv&eacute;e</h3>
 			<div id="arrivee">
 				<p>Coordonn&eacute;es : ( <span id="latB"></span> , <span id="longB"></span> )</p>
-				<p>Adresse<input size="30" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
+				<p>Adresse<input size="35" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
 			</div>
 			<p><strong>Distance totale : </strong><span id="distanceTotale"></span></p>
 			<input type="hidden" name="distanceTotale" id="dT" value="" />

@@ -99,8 +99,10 @@ function calculerItineraire() {
 
 function CoordonneesToString(coordonnees, idHtml) {
 
-	document.getElementById("lat" + idHtml).innerHTML = coordonnees.lat();
-	document.getElementById("long" + idHtml).innerHTML = coordonnees.lng();
+	var lat = Math.ceil(coordonnees.lat() * 1000000000) / 1000000000;
+	var lng = Math.ceil(coordonnees.lng() * 1000000000) / 1000000000;
+	document.getElementById("lat" + idHtml).innerHTML = lat;
+	document.getElementById("long" + idHtml).innerHTML = lng;
 
 	latLngService.geocode({location:coordonnees}, function(reponse, statut) {
 		if (google.maps.GeocoderStatus.OK) {
