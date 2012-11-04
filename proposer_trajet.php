@@ -53,19 +53,19 @@
 			<h3>D&eacute;part</h3>
 			<div id="depart">
 				<p>Coordonn&eacute;es : ( <span id="latA"></span> , <span id="longA"></span> )</p>
-				<p>Adresse<input size="35" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
+				<p>Adresse<input size="40" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
 			</div>
 			<h3>Arriv&eacute;e</h3>
 			<div id="arrivee">
 				<p>Coordonn&eacute;es : ( <span id="latB"></span> , <span id="longB"></span> )</p>
-				<p>Adresse<input size="35" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
+				<p>Adresse<input size="40" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
 			</div>
 			<p><strong>Distance totale : </strong><span id="distanceTotale"></span></p>
 			<input type="hidden" name="distanceTotale" id="dT" value="" />
 			<p><strong>Temps : </strong><span id="tempsTotal"></span></p>
 			<input type="hidden" name="tempsTotal" id="tT" value="" />
 			<p><strong>Description</strong>
-			<textarea rows="4" cols="40" name="description"></textarea></p>
+			<textarea rows="4" cols="50" name="description"></textarea></p>
 			<!--<input type="submit" value="Proposer" />-->
 			<input type="button" value="Proposer" name="submit_button" onclick="this.form.submit();">
 			<input type="hidden" name="action" value="proposer" />
