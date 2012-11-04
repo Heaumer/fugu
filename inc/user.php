@@ -58,4 +58,26 @@
 		/* assume INSERT worked ;-) */
 		return true;
 	}
+
+	function getdriver($name, &$db) {
+		$stmt = $db->prepare(
+			"SELECT * FROM route
+				WHERE
+					driver = :name");
+
+		$stmt->execute(array(':name' => $name));
+
+		return $stmt->fetchAll();
+	}
+
+	function getpassenger($name, &$db) {
+		$stmt = $db->prepare(
+			"SELECT * FROM passenger
+				WHERE
+					iduser = :name");
+
+		$stmt->execute(array(':name' => $name));
+
+		return $stmt->fetchAll();
+	}
 ?>

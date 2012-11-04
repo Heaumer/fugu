@@ -35,4 +35,4 @@ INSERT INTO route (sdate, driver, startpoint, endpoint)
 	VALUES (date('now'), "sophie", "Sophia-Antipolis", "Nice");
 
 INSERT INTO passenger (idroute, iduser)
-	VALUES (0, "mathieu");
+	VALUES (1, "mathieu");
