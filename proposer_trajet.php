@@ -66,7 +66,8 @@
 			<input type="hidden" name="tempsTotal" id="tT" value="" />
 			<p><strong>Description</strong>
 			<textarea rows="4" cols="40" name="description"></textarea></p>
-			<input type="submit" value="Proposer" />
+			<!--<input type="submit" value="Proposer" />-->
+			<input type="button" value="Proposer" name="submit_button" onclick="this.form.submit();">
 			<input type="hidden" name="action" value="proposer" />
 		</form>
 	</div>
