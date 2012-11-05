@@ -9,15 +9,42 @@
 		return false;
 	}
 
-	function prroute($r) {
-		echo '<p>';
-		echo $r['startpoint'].' to '.$r['endpoint'];
-		echo '<br />';
-		echo $r['description'];
-		echo '</p>';
+	function prroute($arr, $r) {
+		foreach($arr as $a)
+			echo '<td>'.$r[$a].'</td>';
 	}
 
-	function prpass($r, &$db) {
+	function prroutes($routes) {
+		if (count($routes) == 0)
+			return;
+
+		echo '<table>';
+		echo '<caption>Driver for</caption>';
+
+		echo '<thead><tr>';
+		foreach (array('from', 'to', 'time', 'distance', 'description', 'actions') as $a)
+			echo '<th>'.$a.'</th>';
+		echo '</tr></thead>';
+
+		echo '<tbody>';
+		foreach ($routes as $r) {
+			echo '<tr>';
+			prroute(array('startpoint', 'endpoint', 'time', 'distance', 'description'), $r);
+			echo '<td>';
+			echo '<form action="#" method="post">';
+				echo '<input type="submit" value="delete" />';
+				echo '<input type="hidden" name="action" value="delete" />';
+				echo '<input type="hidden" name="action" value="'.$r['idroute'].'" />';
+			echo '</form>';
+			echo '</td>';
+			echo '</tr>';
+		}
+		echo '</tbody>';
+		
+		echo '</table>';
+	}
+
+	function prpassenger($r, &$db) {
 		$stmt = $db->prepare(
 			"SELECT * FROM route
 				WHERE
@@ -26,7 +53,36 @@
 		$stmt->execute(array(':idroute' => $r['idroute']));
 
 		$arr = $stmt->fetch();
-		prroute($arr);
+		echo '<tr>';
+		prroute(array('startpoint', 'endpoint', 'time', 'distance', 'description'), $arr);
+		echo '<td>';
+		echo '<form action="#" method="post">';
+			echo '<input type="submit" value="delete" />';
+			echo '<input type="hidden" name="action" value="delete" />';
+			echo '<input type="hidden" name="action" value="'.$r['idroute'].'" />';
+		echo '</form>';
+		echo '</td>';
+		echo '</tr>';
+	}
+
+	function prpassengers($routes, &$db) {
+		if (count($routes) == 0)
+			return;
+
+		echo '<table>';
+		echo '<caption>Passenger for</caption>';
+
+		echo '<thead><tr>';
+		foreach (array('driver', 'from', 'to', 'time', 'distance', 'description', 'actions') as $a)
+			echo '<th>'.$a.'</th>';
+		echo '</tr></thead>';
+
+		echo '<tbody>';
+		foreach($routes as $r)
+			prpassenger($r, $db);
+		echo '</tbody>';
+		
+		echo '</table>';
 	}
 
 	/*

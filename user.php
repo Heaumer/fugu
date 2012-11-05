@@ -20,16 +20,9 @@
 	if (count($asdriver) == 0 && count($aspassenger) == 0)
 		echo '<h2> No route yet </h2>';
 	else {
-		if (count($asdriver) > 0) {
-			echo '<h2> Driver for </h2>';
-			foreach ($asdriver as $route)
-				prroute($route);
-		}
-		if (count($aspassenger) > 0) {
-			echo '<h2> Passenger for </h2>';
-			foreach ($aspassenger as $route)
-				prpass($route, $db);
-		}
+		prroutes($asdriver);
+		/* need db to retrieve route from passenger table */
+		prpassengers($aspassenger, $db);
 	}
 ?>
 
