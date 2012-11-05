@@ -5,33 +5,13 @@
 	if (isset($_SESSION['connected']) == false || $_SESSION['connected'] == false)
 		header('Location: index.php');
 
-	if (isset($_POST['action']))
-	if (strcmp($_POST['action'], "disconnect") == 0) {
-		logout();
-		header('Location: index.php');
-	}
-
 	include('static/header.html');	
-	
+	include('inc/menu.php');
 ?>
 	<h1> connected! </h1>
-	<form action="#" method="post">
-		<input type="submit" value="disconnect" />
-		<input type="hidden" name="action" value="disconnect" />
-	</form>
-
 <?php
 
-	$db = NULL;
-	try {
-		/* be sure BOTH .db file and sql directory have rw perm */
-		$db = new PDO('sqlite:sql/app.db');
-	}
-	catch(PDOException $e) {
-		echo 'cannot load db';
-		exit;
-	}
-
+	$db = opendb("sql/app.db");
 
 	/* XXX obvious security issue */
 	$asdriver = getdriver($_SESSION['user'], $db);

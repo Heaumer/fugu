@@ -1,45 +1,37 @@
 <?php
 
+	include_once 'inc/user.php';
+	include_once 'inc/utils.php';
 	include_once 'inc/route.php';
 
-	if (isset($_SESSION['connected']) && $_SESSION['user']) {
-	
-		if ($_SESSION['connected'] == false) {
-			header('Location: index.php');
-			
-		} else {
-		
-			if (isset($_POST['action'])) {
-			
-				if (strcmp($_POST['action'], "proposer") == 0) {
-					$startPoint = htmlspecialchars($_POST['adresseA'], ENT_QUOTES);
-					$endPoint = htmlspecialchars($_POST['adresseB'], ENT_QUOTES);
-					$distance = htmlspecialchars($_POST['distanceTotale'], ENT_QUOTES);
-					$temps = htmlspecialchars($_POST['tempsTotal'], ENT_QUOTES);
-					$description = htmlspecialchars($_POST['description'], ENT_QUOTES);
-				}
-		
-				$db = NULL;
-				try {
-					/* be sure BOTH .db file and sql directory have rw perm */
-					$db = new PDO('sqlite:sql/app.db');
-				} catch(PDOException $e) {
-					echo 'cannot load db';
-					exit;
-				}
-		
-				if (enregistrer_trajet($_SESSION['user'], $startPoint, $endPoint ,$distance , $temps, $description, $db)) {
-					header('Location: user.php');
-				}
-			}
-		}
-	
-	} else {
+	$err = "";
+
+	if (isset($_SESSION['connected']) == false || $_SESSION['connected'] == false)
 		header('Location: index.php');
+
+	if (isset($_POST['action']))
+	if (strcmp($_POST['action'], "proposer") == 0) {
+			array_walk($_POST, "sanitized");
+
+		$db = opendb("sql/app.db");
+
+		if (register_route($_SESSION['user'], $_POST['adresseA'],
+				$_POST['adresseB'],
+				$_POST['distanceTotale'],
+				$_POST['tempsTotal'],
+				$_POST['description'], $db)) {
+			$db = NULL;
+			header('Location: user.php');
+		}
+		else
+			$err = "Route not registered!";
+
+		$db = NULL;
 	}
 	
 	include('static/header_proposition_trajet.html');
-	
+	include('inc/menu.php');
+	prerr($err);	
 ?>
 
 	<div id="header">
@@ -50,14 +42,14 @@
 
 	<div id="informations">
 		<form action="#" method="post">
-			<h3>D&eacute;part</h3>
+			<h3>Départ</h3>
 			<div id="depart">
-				<p>Coordonn&eacute;es : ( <span id="latA"></span> , <span id="longA"></span> )</p>
+				<p>Coordonnées : ( <span id="latA"></span> , <span id="longA"></span> )</p>
 				<p>Adresse<input size="40" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
 			</div>
-			<h3>Arriv&eacute;e</h3>
+			<h3>Arrivée</h3>
 			<div id="arrivee">
-				<p>Coordonn&eacute;es : ( <span id="latB"></span> , <span id="longB"></span> )</p>
+				<p>Coordonnées : ( <span id="latB"></span> , <span id="longB"></span> )</p>
 				<p>Adresse<input size="40" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
 			</div>
 			<p><strong>Distance totale : </strong><span id="distanceTotale"></span></p>

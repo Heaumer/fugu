@@ -26,6 +26,7 @@
 			':passwd' => $passwd));
 
 		$r = $stmt->fetch();
+
 		return !empty($r);
 	}
 

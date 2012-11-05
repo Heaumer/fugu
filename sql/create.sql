@@ -6,7 +6,7 @@ CREATE TABLE user(
 
 CREATE TABLE route(
 	id			INTEGER PRIMARY KEY AUTOINCREMENT,
-	sdate		DATE,
+	description	TEXT
 	time		INTEGER,
 	distance	INTEGER,
 	driver		VARCHAR(20),
@@ -31,8 +31,8 @@ INSERT INTO user (name, passwd, email)
 INSERT INTO user (name, passwd, email)
 	VALUES ("mathieu", "somemorehash", "bivert@essi.fr");
 
-INSERT INTO route (sdate, driver, startpoint, endpoint)
-	VALUES (date('now'), "sophie", "Sophia-Antipolis", "Nice");
+INSERT INTO route (description, driver, startpoint, endpoint)
+	VALUES ("tralalalala", "sophie", "Sophia-Antipolis", "Nice");
 
 INSERT INTO passenger (idroute, iduser)
 	VALUES (1, "mathieu");

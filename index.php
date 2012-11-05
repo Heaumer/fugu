@@ -1,34 +1,28 @@
 <?php
 	include_once 'inc/user.php';
+	include_once 'inc/utils.php';
 
 	$err = "";
 
-	$db = NULL;
-	try {
-		/* be sure BOTH .db file and sql directory have rw perm */
-		$db = new PDO('sqlite:sql/app.db');
-	}
-	catch(PDOException $e) {
-		echo 'cannot load db';
-		exit;
-	}
-
 	if (isset($_POST['action']))
 	if (strcmp($_POST['action'], "connect") == 0) {
-		$login	= htmlspecialchars(trim($_POST['login']), ENT_QUOTES);
-		$passwd	= htmlspecialchars($_POST['passwd'], ENT_QUOTES);
+		array_walk($_POST, "sanitized");
 
-		if (login($login, $passwd, $db))
+		$db = opendb("sql/app.db");
+
+		if (login($_POST['login'], $_POST['passwd'], $db)) {
+			$db = NULL;
 			header('Location: user.php');
+		}
 		else
 			$err = "Bad login or password";
-	}
-	include('static/header.html');
 
-	if (strcmp($err, "")) {
-		echo '<p><b> An error has occured: '.$err.'</b></p>';
-		$err = "";
+		$db = NULL;
 	}
+
+	include('static/header.html');
+	include('inc/menu.php');
+	prerr($err);
 ?>
 
 <div id="header">

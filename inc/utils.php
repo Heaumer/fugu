@@ -28,4 +28,33 @@
 		$arr = $stmt->fetch();
 		prroute($arr);
 	}
+
+	/*
+	 * be sure webserver have rw perm for
+	 * both .db file and its parent directory
+	 */
+	function opendb($file) {
+		$db = NULL;
+
+		try {
+			$db = new PDO('sqlite:'.$file);
+		}
+		catch(PDOException $e) {
+			echo 'Internal error: cannot load db';
+			exit;
+		}
+
+		return $db;
+	}
+
+	function prerr(&$err) {
+		if (strlen($err) > 0) {
+			echo '<p><b> An error has occured: '.$err.'</b></p>';
+			$err = "";
+		}
+	}
+
+	function sanitized(&$val, $key) {
+		$val = htmlspecialchars($val, ENT_QUOTES);
+	}
 ?>
