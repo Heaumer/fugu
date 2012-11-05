@@ -11,7 +11,7 @@
 
 	if (isset($_POST['action']))
 	if (strcmp($_POST['action'], "proposer") == 0) {
-			array_walk($_POST, "sanitized");
+		array_walk($_POST, "sanitized");
 
 		$db = opendb("sql/app.db");
 
