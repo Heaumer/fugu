@@ -34,7 +34,7 @@
 			echo '<form action="#" method="post">';
 				echo '<input type="submit" value="delete" />';
 				echo '<input type="hidden" name="action" value="delete" />';
-				echo '<input type="hidden" name="action" value="'.$r['idroute'].'" />';
+				echo '<input type="hidden" name="idRoute" value="'.$r['id'].'" />';
 			echo '</form>';
 			echo '</td>';
 			echo '</tr>';

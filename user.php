@@ -1,6 +1,7 @@
 <?php
 	include_once 'inc/user.php';
 	include_once 'inc/utils.php';
+	include_once 'inc/route.php';
 
 	if (isset($_SESSION['connected']) == false || $_SESSION['connected'] == false)
 		header('Location: index.php');
@@ -11,7 +12,19 @@
 	<h1> connected! </h1>
 <?php
 
+	$err = "";
 	$db = opendb("sql/app.db");
+
+	if (isset($_POST['action']))
+		if (strcmp($_POST['action'], "delete") == 0) {
+			array_walk($_POST, "sanitized");
+			
+			if (!deleteroute($_POST['idRoute'], $db))
+				$err = "Route not deleted!";
+			
+		}
+		
+	prerr($err);	
 
 	/* XXX obvious security issue */
 	$asdriver = getdriver($_SESSION['user'], $db);

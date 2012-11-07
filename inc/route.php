@@ -21,9 +21,10 @@
 	}
 
 	function deleteroute($id, &$db) {
+
 		$stmt = $db->prepare(
 			"DELETE FROM route
-				WHERE idroute = :id");
+				WHERE id = :id");
 
 		$stmt->execute(array(':id' => $id));
 
@@ -33,6 +34,8 @@
 				WHERE idroute = :id");
 
 		$stmt->execute(array(':id' => $id));
+		
+		return true;
 	}
 
 ?>
