@@ -9,7 +9,7 @@
 	include('static/header.html');	
 	include('inc/menu.php');
 ?>
-	<h1> connected! </h1>
+	<h1 id="header">Dashboard</h1>
 <?php
 
 	$err = "";

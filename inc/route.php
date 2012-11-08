@@ -44,5 +44,39 @@
 
 		return $stmt->execute(array(':idroute' => $id, ':iduser' => $user));
 	}
+	
+	function join_route($passenger, $idRoute, &$db) {
+		$statement = $db->prepare(
+			"INSERT INTO passenger
+				(idroute, iduser)
+				VALUES (:idRoute, :passenger)");
+
+		$r = $statement->execute(
+			array(':idRoute' => $idRoute,
+				':passenger' => $passenger));
+
+		echo $idRoute . $passenger;
+
+		return $r;
+	}
+
+	function get_similar_routes($adresseA, $adresseB, $user, &$db) {
+		// On sélectionne les trajets avec les mêmes points départ / arrivée
+		// Il ne faut pas être le conducteur du trajet
+		// On ne sélectionne que les trajets où on n'est pas déjà inscrit
+		$stmt = $db->prepare("SELECT * FROM route 
+								WHERE 
+									startpoint = :addA 
+								AND
+									endpoint = :addB
+								AND
+									driver <> :user
+								AND
+									id NOT IN (SELECT idroute FROM passenger WHERE iduser = :user)");
+
+		$stmt->execute(array(':addA' => $adresseA, ':addB' => $adresseB, ':user' => $user));
+
+		return $stmt->fetchAll();
+	}
 
 ?>
