@@ -33,7 +33,7 @@
 			echo '<td>';
 			echo '<form action="#" method="post">';
 				echo '<input type="submit" value="delete" />';
-				echo '<input type="hidden" name="action" value="delete" />';
+				echo '<input type="hidden" name="action" value="deleteroute" />';
 				echo '<input type="hidden" name="idRoute" value="'.$r['id'].'" />';
 			echo '</form>';
 			echo '</td>';
@@ -58,8 +58,8 @@
 		echo '<td>';
 		echo '<form action="#" method="post">';
 			echo '<input type="submit" value="delete" />';
-			echo '<input type="hidden" name="action" value="delete" />';
-			echo '<input type="hidden" name="action" value="'.$r['idroute'].'" />';
+			echo '<input type="hidden" name="action" value="deletepass" />';
+			echo '<input type="hidden" name="idRoute" value="'.$r['idroute'].'" />';
 		echo '</form>';
 		echo '</td>';
 		echo '</tr>';

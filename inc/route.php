@@ -21,21 +21,28 @@
 	}
 
 	function deleteroute($id, &$db) {
-
 		$stmt = $db->prepare(
 			"DELETE FROM route
 				WHERE id = :id");
 
-		$stmt->execute(array(':id' => $id));
+		if ($stmt->execute(array(':id' => $id)) == false)
+			return false;
 
 		/* delete passenger for this route too */
 		$stmt = $db->prepare(
 			"DELETE FROM passenger
 				WHERE idroute = :id");
 
-		$stmt->execute(array(':id' => $id));
-		
-		return true;
+		return $stmt->execute(array(':id' => $id));
+	}
+
+	function deletepass($id, $user, &$db) {
+		$stmt = $db->prepare(
+			"DELETE FROM passenger
+				WHERE	idroute = :idroute
+					AND	iduser = :iduser");
+
+		return $stmt->execute(array(':idroute' => $id, ':iduser' => $user));
 	}
 
 ?>
