@@ -26,7 +26,7 @@
 ?>
 
 <div id="header">
-   <h1>Find Your Guest User-friendly (FUGU!)</h1>
+   <h1>Find Your Guest Unisonously (FUGU!)</h1>
 </div>
 	<div class="login_box">
 		<h2> Connection </h2>
