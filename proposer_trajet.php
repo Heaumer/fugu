@@ -47,7 +47,7 @@
 				<p>Coordinates : ( <span id="latA"></span> , <span id="longA"></span> )</p>
 				<p>Address<input size="40" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
 			</div>
-			<h3>Arrivée</h3>
+			<h3>Arrival</h3>
 			<div id="arrivee">
 				<p>Coordinates : ( <span id="latB"></span> , <span id="longB"></span> )</p>
 				<p>Address<input size="40" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
