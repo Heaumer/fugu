@@ -8,69 +8,54 @@
 			return true;
 		return false;
 	}
+		
+	function print_header_table($text, $array) {
+		echo '<table>';
+		echo '<caption>' . $text . '</caption>';
+
+		echo '<thead><tr>';
+		foreach ($array as $a)
+			echo '<th>' . $a . '</th>';
+		echo '</tr></thead>';
+	}
+	
+	function print_table($routes, $array, $action) {
+		echo '<tbody>';
+		foreach ($routes as $r) {
+			echo '<tr>';
+			prroute($array, $r);
+			echo '<td>';
+			echo '<form action="#" method="post">';
+				echo '<input type="submit" value="' . $action . '"/>';
+				echo '<input type="hidden" name="action" value="' . $action .  'route" />';
+				echo '<input type="hidden" name="idRoute" value="'.$r['id'].'" />';
+			echo '</form>';
+			echo '</td>';
+			echo '</tr>';
+		}
+		echo '</tbody>';
+		echo '</table>';
+	}
+	
+	function prroute($arr, $r) {
+		foreach($arr as $a)
+			echo '<td>'.$r[$a].'</td>';
+	}
 	
 	function print_filtered_routes($routes) {
 		if (count($routes) == 0)
 			return;
 
-		echo '<table>';
-		echo '<caption>Results</caption>';
-		echo '<thead><tr>';
-		foreach (array('driver', 'from', 'to', 'time', 'distance', 'description', 'actions') as $a)
-			echo '<th>'.$a.'</th>';
-		echo '</tr></thead>';
-		
-		echo '<tbody>';
-		foreach ($routes as $r) {
-			echo '<tr>';
-			prroute(array('driver', 'startpoint', 'endpoint', 'time', 'distance', 'description'), $r);
-			echo '<td>';
-			echo '<form action="#" method="post">';
-				echo '<input type="submit" value="join" />';
-				echo '<input type="hidden" name="action" value="joinroute" />';
-				echo '<input type="hidden" name="idRoute" value="'.$r['id'].'" />';
-			echo '</form>';
-			echo '</td>';
-			echo '</tr>';
-		}
-		echo '</tbody>';
-		
-		echo '</table>';		
+		print_header_table("Results", array('Driver', 'From', 'To', 'Duration', 'Distance', 'Description', 'Actions'));
+		print_table($routes, array('driver', 'startpoint', 'endpoint', 'time', 'distance', 'description'), "join");
 	}
-
-	function prroute($arr, $r) {
-		foreach($arr as $a)
-			echo '<td>'.$r[$a].'</td>';
-	}
-
+	
 	function prroutes($routes) {
 		if (count($routes) == 0)
 			return;
 
-		echo '<table>';
-		echo '<caption>Driver for</caption>';
-
-		echo '<thead><tr>';
-		foreach (array('from', 'to', 'time', 'distance', 'description', 'actions') as $a)
-			echo '<th>'.$a.'</th>';
-		echo '</tr></thead>';
-
-		echo '<tbody>';
-		foreach ($routes as $r) {
-			echo '<tr>';
-			prroute(array('startpoint', 'endpoint', 'time', 'distance', 'description'), $r);
-			echo '<td>';
-			echo '<form action="#" method="post">';
-				echo '<input type="submit" value="delete" />';
-				echo '<input type="hidden" name="action" value="deleteroute" />';
-				echo '<input type="hidden" name="idRoute" value="'.$r['id'].'" />';
-			echo '</form>';
-			echo '</td>';
-			echo '</tr>';
-		}
-		echo '</tbody>';
-		
-		echo '</table>';
+		print_header_table("Driver for", array('From', 'To', 'Duration', 'Distance', 'Description', 'Actions'));
+		print_table($routes, array('startpoint', 'endpoint', 'time', 'distance', 'description'), "delete");
 	}
 
 	function prpassenger($r, &$db) {
@@ -97,14 +82,8 @@
 	function prpassengers($routes, &$db) {
 		if (count($routes) == 0)
 			return;
-
-		echo '<table>';
-		echo '<caption>Passenger for</caption>';
-
-		echo '<thead><tr>';
-		foreach (array('driver', 'from', 'to', 'time', 'distance', 'description', 'actions') as $a)
-			echo '<th>'.$a.'</th>';
-		echo '</tr></thead>';
+		
+		print_header_table("Passenger for", array('Driver', 'From', 'To', 'Duration', 'Distance', 'Description', 'Actions'));
 
 		echo '<tbody>';
 		foreach($routes as $r)

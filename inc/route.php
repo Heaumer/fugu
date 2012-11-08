@@ -55,8 +55,6 @@
 			array(':idRoute' => $idRoute,
 				':passenger' => $passenger));
 
-		echo $idRoute . $passenger;
-
 		return $r;
 	}
 
@@ -74,22 +72,10 @@
 								AND
 									id NOT IN (SELECT idroute FROM passenger WHERE iduser = :user)");
 
-		$stmt->execute(array(':addA' => $adresseA, ':addB' => $adresseB, ':user' => $user));
+		if ($stmt->execute(array(':addA' => $adresseA, ':addB' => $adresseB, ':user' => $user)) == false)
+			return array();
 
 		return $stmt->fetchAll();
 	}
 
-	function searchroute($from, $to, &$db) {
-		$stmt = $db->prepare(
-			"SELECT * FROM route
-				WHERE	from = :from
-					AND	to = :to");
-
-		if ($stmt->execute(array(':from' => $from, ':to' => $to)) == false)
-			return array();
-
-		$a = $stmt->fetchAll();
-
-		return $a;
-	}
 ?>

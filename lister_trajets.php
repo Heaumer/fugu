@@ -14,7 +14,7 @@
 		
 ?>
 
-<h1 id="header">R&eacute;sultats de la recherche</h1>
+<h1 id="header">Research results</h1>
 
 <?php
 
@@ -42,12 +42,13 @@
 		$db = opendb("sql/app.db");
 		
 		// On rejoint le trajet
-		join_route($_SESSION['user'], $_POST['idRoute'], $db);
-		
-		$db = NULL;
-		
-		header('Location: user.php');
-				
+		if (join_route($_SESSION['user'], $_POST['idRoute'], $db)) {
+			$db = NULL;
+			header('Location: user.php');
+		} else {
+			$err = "Join failure";
+			prerr($err);
+		}
 	}
 		
 ?>

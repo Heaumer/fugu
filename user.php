@@ -16,19 +16,19 @@
 	$db = opendb("sql/app.db");
 
 	if (isset($_POST['action'])) {
-	if (strcmp($_POST['action'], "deleteroute") == 0) {
-			array_walk($_POST, "sanitized");
+		if (strcmp($_POST['action'], "deleteroute") == 0) {
+				array_walk($_POST, "sanitized");
 
-			if (!deleteroute($_POST['idRoute'], $db))
-				$err = "Route not deleted!";
+				if (!deleteroute($_POST['idRoute'], $db))
+					$err = "Route not deleted!";
 			
-	}
-	else if (strcmp($_POST['action'], "deletepass") == 0) {
-			array_walk($_POST, "sanitized");
-
-			if (!deletepass($_POST['idRoute'], $_SESSION['user'], $db))
-				$err = "Route not deleted!";
-	}
+		}
+		else if (strcmp($_POST['action'], "deletepass") == 0) {
+				array_walk($_POST, "sanitized");
+	
+				if (!deletepass($_POST['idRoute'], $_SESSION['user'], $db))
+					$err = "Route not deleted!";
+		}
 	}
 		
 	prerr($err);	

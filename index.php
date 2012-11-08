@@ -26,10 +26,10 @@
 ?>
 
 <div id="header">
-   <h1> Welcome </h1>
+   <h1>Find Your Guest User-friendly (FUGU!)</h1>
 </div>
 	<div class="login_box">
-		<h2> Connexion </h2>
+		<h2> Connection </h2>
 			<form action="#" method="post">
 				<ul>
 					<li> Login: <input type="text" name="login" /> </li>
