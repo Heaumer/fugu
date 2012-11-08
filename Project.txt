@@ -1,0 +1,95 @@
+Code injection : <script>Code</script> Minimum
+Il ne faut pas include avec truc du client
+
+Justifier pourquoi on pense que c'est sûr
+Sécurité partielle
+Ne pas donner ref window au gadget
+
+Utiliser tous les trucs JS
+Fonction rec : while ?
+Utiliser truc avec DOM : on peut utiliser innerHTML
+
+Design OSEF
+
+Si on considère plus d'attaques : on peut dépasser 10
+12 pt de fonte
+
+Format PDF
+Doit figurer :
+Titre appli, auteurs
+3 parties : 
+
+1) Fonctionnalites (quoi et pas comment, no security), 
+
+2) Serveur 
+
+2.1 Ts les services dispo, comment prevenir tous les  trucs...
+
+"Dans la ligne machin, on génère nombre aléatoire"
+
+3) Client
+
+3.1 Google Maps API : on utilise les fonctions titi, toto et tata...
+3.2 Javascript
+
+On a def le prototype pour faire ceci ou cela.
+Scope chain : x On monte la scope chain et indiquer ligne
+Prototype : o.x
+ 
+8/11 : tar.gz avec le code
+Envoyer le code de la fonctionnalité mais sans la sécu
+Il peut ne pas marcher.
+
+15/11 : code si on l'avait modif et rapport
+
+Notation :
+
+Projet sans sécu mais avec rapport : 8
+Projet avec quelques attaques gérées : 9 sans rapport, 10 avec
+Tout : entre 12 et 15
++ de 15 : attaques en plus. Code injection mieux géré. PLus de sécu côté mashup
+Idem côté JS : faire de la recherche sur les attaques.
+
+Pour prévenir partiellement code injection : on remplace < par code HTML &lt; 
+
+Avec filter_var($messages, ENT_NQ
+htmlspecialchars
+
+Attention aux fermetures de document.write("..
+Pas de rich text
+Informational Flow Analysis
+
+Lecture cookies : document.cookies
+HttpOnly : ne pas utiliser js. A utiliser pour cookies d'authentification. pour prévenir XSS
+
+MashUp: utiliser du code externe
+HousingMaps.com
+
+Geocoder pour transformer @ en coordonnées
+geocode(...)
+
+Avec iframe pas de ref à window
+Pour avoir acces a div, on doit mettre div dans iframe
+Dans iframe, on doit faire page html <html>...</html>
+
+Avec postMessage on peut pas envoyer ref
+
+HttpAuthentication: code et n'encrypte pas
+On utilise : HttpS (http encrypté)
+Gen d'une clé unique par client
+
+Le serveur envoie sa clé pub
+Le client génère r : clé privée
+Pour décrpyter ça il faut clé r privée
+On peut pas deviner car pb très difficile
+Maintenant messages encrpytés avec r.
+
+
+
+
+
+
+
+
+
+
