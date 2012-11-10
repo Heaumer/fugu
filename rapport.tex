@@ -4,7 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{graphicx}
+\usepackage[pdftex]{graphicx}
 \usepackage{url}
 \usepackage{subfigure}
 
@@ -78,18 +78,93 @@
 \maketitle
 
 \newpage
-\tableofcontents
-
-\newpage
 
 \section{Fonctionnalités de l'application web}
+
+L'utilisateur souhaitant faire du covoiturage doit tout d'abord s'authentifier.
+En effet, les utilisateurs possèdent leurs propres données.
+L'utilisateur s'authentifie via un formulaire de connexion, illustré dans la figure 1.
+Il doit renseigner son login et son mot de passe. S'il n'en possède pas,
+il peut s'enregistrer sur la page d'inscription. Pour cela, il doit cliquer 
+sur le lien "register".
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.4]{Connexion.png}
+	\caption{\label{login} Formulaire de connexion}
+\end{figure}
+
+\subsection{Tableau de bord de gestion}
+
+Une fois authentifié, l'utilisateur accède à son tableau de bord, représenté en figure 2. Cet écran répertorie tous ses trajets, c'est-à-dire :
+\begin{itemize}
+	\item les trajets dont il est le conducteur dans la partie haute de la page;
+	\item les trajets dont il est le passager dans la partie basse de la page.
+\end{itemize}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.5]{Dashboard.png}
+	\caption{\label{dashboard} Tableau de bord}
+\end{figure}
+
+L'utilisateur a accès à tout moment à ce tableau de bord en cliquant sur "Manage" sur le menu de navigation. Et il peut se déconnecter en cliquant sur "Disconnect".
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.4]{Menu.png}
+	\caption{\label{menu} Menu de navigation}
+\end{figure}
+
+Pour chaque trajet, les adresses de départ et d'arrivée sont affichées. Le temps (en minutes) et la distance (en kilomètres), qui ont été calculés, sont également affichés. L'utilisateur peut voir la description qui a été donnée au trajet. Généralement, ce sont des informations pratiques sur le rendez-vous.
+
+L'utilisateur peut supprimer un trajet de son tableau de bord : pour cela, il clique sur le bouton "delete" du trajet qu'il souhaite supprimer.
+Son tableau de bord est alors mis à jour. S'il était conducteur pour ce trajet, alors le trajet n'apparaîtra plus dans le tableau de bord des autres passagers. 
+
+\subsection{Proposition de trajet}
+
+En cliquant sur "Propose" sur le menu de navigation, l'utilisateur peut proposer un trajet comme dans la figure 4. Au chargement, une carte apparaît avec une adresse
+de départ et une adresse d'arrivée par défaut. Pour indiquer son trajet, l'utilisateur a deux solutions :
+\begin{itemize}
+	\item il peut entrer les adresses de départ et destination dans les champs
+	\item il peut déplacer les marqueurs sur la carte
+\end{itemize}
+
+Dans le premier cas, les marqueurs sur la carte sont immédiatement mis à jour. Dans le second cas, les champs d'adresses sont immédiatement mis à jour.
+Et quelque soit la méthode pour indiquer le trajet, le temps de trajet et la distance sont calculés.
+L'utilisateur a ensuite la possibilité de laisser une description en remplissant le champ de texte.
+Pour terminer, il enregistre son trajet en cliquant sur le bouton "Propose", en-dessous de la description.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.4]{Propose.png}
+	\caption{\label{propose} Proposition de trajet}
+\end{figure}
+
+Après enregistrement, l'utilisateur est redirigé sur le tableau de bord où figure le nouveau trajet créé.
+
+\subsection{Recherche de trajet}
+
+En cliquant sur "Search" sur le menu de navigation, l'utilisateur peut chercher un trajet existant. Le principe est le même que pour la création
+de trajet à l'exception que l'utilisateur ne renseigne aucun champ de description. Après un clic sur le bouton "Search", une liste de trajets
+est affichée. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.5]{Search.png}
+	\caption{\label{search} Recherche de trajet}
+\end{figure}
+
+Pour chaque trajet, on peut s'inscrire en tant que passager. Il faut noter que les trajets sur lesquels on s'est déjà inscrit ne figurent
+pas dans la recherche. Pour s'inscrire, on clique sur le bouton "join" en face du trajet. On est alors redirigé vers le tableau de bord
+où apparaît maintenant le trajet que l'on a rejoint.
 
 \section{Serveur}
 
 	\subsection{Services}
 	\subsection{Securité}
  		\subsubsection{Prévention de l'attaque XSRF}
- 		\subsubsection{Prévention des attaques contre l'intégrité des sessions}
+ 		\subsubsection{Prévention des attaques contre l'intégrité de la session}
  		\subsubsection{Prévention des attaques XSS}
 		\subsubsection{Prévention des attaques d'injection de code}
 		\subsubsection{Prévention des attaques RFI / LFI}
