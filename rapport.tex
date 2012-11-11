@@ -203,7 +203,41 @@ Afin qu'une attaque du type Man in the Middle n'opère pas, on utilise un flux c
  		
  		
 		\subsubsection{Prévention des attaques d'injection de code}
+		
+\paragraph{Injections SQL}
+~~\\
+\\
+La solution est de vérifier les données de l'utilisateur et d'échapper les caractères spéciaux.
+Dans notre cas, nous utilisons des requêtes préparées en PHP.
+Tout d'abord, on écrit une requête à trous sans les paramètres.
+Ensuite, la requête est analysée et compilée.
+Enfin, les paramètres sont donnés et le driver MySQL pour PHP gère automatiquement l'échappement des caractères spéciaux.
+Concernant la vérification, elle est faite en utilisant des expressions régulières.			
+		
+\paragraph{Injections Javascript}
+~~\\
+\\
+On veut éviter qu'un utilisateur insère un script Javascript dans un champ.
+Pour pallier ce problème, on transforme les caractères spéciaux du texte entré afin
+qu'un éventuel script Javascript deviennent du texte non interprété.
+Pour cela, on utilise la fonction sanatize du fichier utils.php. Cette fonction appelle
+la fonction PHP htmlspecialchars.
+		
 		\subsubsection{Prévention des attaques RFI / LFI}
+		
+\paragraph{RFI}
+~~\\
+\\
+On ne fait pas de include en PHP en utilisant les données utilisateur.
+L'utilisateur ne peut pas nous forcer à inclure un fichier important du serveur.
+Cela nous protège des attaques LFI.
+
+\paragraph{LFI}
+~~\\
+\\
+On n'inclut pas d'URL externe dans le code PHP.
+Par sécurité dans le fichier php.ini, on désactive l'option allow\_url\_include 
+Cela nous protège des attaques RFI.
 		
 		\subsubsection{D'autres éléments de prévention}
 		
