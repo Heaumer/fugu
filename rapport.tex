@@ -165,6 +165,18 @@ où apparaît maintenant le trajet que l'on a rejoint.
 	\subsection{Securité}
  		\subsubsection{Prévention de l'attaque XSRF}
  		
+Une telle attaque envoie des requêtes à l'insu de l'utilisateur depuis son propre navigateur.
+Pour la contrer, on génère un nombre aléatoire qui est stocké côté serveur.
+Pour obtenir le service habituel, il faut préciser le nombre aléatoire en paramètre de l'URL.
+Le serveur vérifie que le paramètre est bien égal au nombre aléatoire stocké côté serveur.
+Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le nombre aléatoire, il n'obtiendra
+pas le service.
+
+Dans notre cas (?)
+Si l'authentification réussit, alors un nombre aléatoire est généré et placé dans l'URL de la page suivante.
+
+   
+ 		
  		\subsubsection{Prévention des attaques contre l'intégrité de la session}
  		
 On souhaite éviter que l'utilisateur ou un attaquant puisse éditer les cookies de session.
@@ -200,7 +212,12 @@ Afin qu'une attaque du type Man in the Middle n'opère pas, on utilise un flux c
  		
  		\subsubsection{Prévention des attaques XSS}
  		
- 		
+Cette attaque injecte du code qui sera interprété sur le navigateur du client : il peut s'agir d'une redirection forcée pour faire 
+du phising ou d'un vol de cookie avec du Javascript.
+Pour protéger le vol de cookie, on active l'option session.cookie\_httponly dans le fichier php.ini.
+Cela permet de rendre les cookies HttpOnly, c'est-à-dire qu'ils ne seront pas accessibles par des langages de script tels que Javascript.
+Il faut également vérifier les données utilisateur comme dans le cas des attaques d'injections de code en retraitant le code
+HTML produit. Pour ce faire, on appelle la fonction hmlspecialchars.
  		
 		\subsubsection{Prévention des attaques d'injection de code}
 		
