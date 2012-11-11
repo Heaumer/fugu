@@ -164,10 +164,51 @@ où apparaît maintenant le trajet que l'on a rejoint.
 	\subsection{Services}
 	\subsection{Securité}
  		\subsubsection{Prévention de l'attaque XSRF}
+ 		
  		\subsubsection{Prévention des attaques contre l'intégrité de la session}
+ 		
+On souhaite éviter que l'utilisateur ou un attaquant puisse éditer les cookies de session.
+Ainsi, on stocke côté serveur une empreinte HMAC des données sensibles envoyées à l'utilisateur.
+Cette empreinte est calculée grâce à deux entrées :
+\begin{itemize}
+	\item la donnée que l'on souhaite passer à l'utilisateur ;
+	\item la clé privée connue seulement du serveur.
+\end{itemize}
+Lors de l'envoi d'un cookie modifié par le client ou un attaquant, le serveur détectera que l'empreinte
+de la donnée envoyée par le client n'est pas la même que celle stockée côté serveur.
+Ainsi on prévient les attaques visant à altérer les données de session.
+
+		\subsubsection{Prévention des attaques de fixation}
+		
+Pour une telle attaque, l'attaquant fixe le Session ID dans l'URL pour un autre utilisateur.
+Il envoie ensuite cette URL à l'utilisateur. Ce dernier s'authentifie et l'attaquant peut alors
+utiliser la session de l'utilisateur car il connait le SID.
+Pour prévenir cette attaque, il faut modifier le fichier php.ini :
+\begin{itemize}
+	\item en activant l'option session.use\_only\_cookies afin que le SID soit transmis exclusivement par cookie ;
+	\item en s'assurant que l'option session.use\_trans\_sid est désactivée.
+\end{itemize}
+	
+		\subsubsection{Prévention des attaques contre la confidentialité des données de session}
+		
+Afin qu'une attaque du type Man in the Middle n'opère pas, on utilise un flux chiffré tel que HTTPS.
+
+		\subsubsection{Prévention des "Replay Attacks"}
+
+		Replay attack Wiki
+		Possible même avec HTTPS...
+ 		
  		\subsubsection{Prévention des attaques XSS}
+ 		
+ 		
+ 		
 		\subsubsection{Prévention des attaques d'injection de code}
 		\subsubsection{Prévention des attaques RFI / LFI}
+		
+		\subsubsection{D'autres éléments de prévention}
+		
+Pour limiter les vols de cookies, lors d'une déconnexion, les cookies sont effacés de la machine ciente.
+Cela permet, par exemple, de limiter des vols causés par une intrusion sur le disque dur de utilisateur.
  		
 \section{Client}
 
