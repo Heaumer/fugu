@@ -29,6 +29,7 @@
 				echo '<input type="submit" value="' . $action . '"/>';
 				echo '<input type="hidden" name="action" value="' . $action .  'route" />';
 				echo '<input type="hidden" name="idRoute" value="'.$r['id'].'" />';
+				echo '<input type="hidden" name="token" value="' . $_SESSION['token'] . '" />';
 			echo '</form>';
 			echo '</td>';
 			echo '</tr>';
@@ -74,6 +75,7 @@
 			echo '<input type="submit" value="delete" />';
 			echo '<input type="hidden" name="action" value="deletepass" />';
 			echo '<input type="hidden" name="idRoute" value="'.$r['idroute'].'" />';
+			echo '<input type="hidden" name="token" value="'. $_SESSION['token'] .'" />';
 		echo '</form>';
 		echo '</td>';
 		echo '</tr>';

@@ -2,12 +2,26 @@
 
 	include_once 'inc/user.php';
 	include_once 'inc/utils.php';
+	include_once 'inc/xsrf.php';
 
 	if (isset($_SESSION['connected']) == false || $_SESSION['connected'] == false)
 		header('Location: index.php');
 	
+	$secure = false;
+	
+	if (isset($_SESSION['token']) && isset($_GET['token'])) {	
+		if (compare_token_with($_GET['token'])) {
+			// No XSRF attack, can continue
+			$secure = true;
+			$token = generate_token();
+		}
+	}
+	
 	include('static/header_chercher_trajet.html');
 	include('inc/menu.php');
+	
+	if ($secure) {
+	
 ?>
 
 	<div id="header">
@@ -34,7 +48,14 @@
 			<p><strong>Duration : </strong><span id="tempsTotal"></span></p>
 			<input type="button" value="Search" name="search_button" onclick="this.form.submit();">
 			<input type="hidden" name="action" value="chercher" />
+			<input type="hidden" name="token" value="<?php echo $token; ?>" />
 		</form>
 	</div>
 
-<?php include('static/footer.html'); ?>
+<?php 
+
+	}
+
+	include('static/footer.html'); 
+	
+?>

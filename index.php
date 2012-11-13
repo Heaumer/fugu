@@ -1,23 +1,42 @@
 <?php
+
 	include_once 'inc/user.php';
 	include_once 'inc/utils.php';
+	include_once 'inc/xsrf.php';
 
 	$err = "";
 
-	if (isset($_POST['action']))
-	if (strcmp($_POST['action'], "connect") == 0) {
-		array_walk($_POST, "sanitized");
+	if (isset($_POST['action'])) {
+		if (strcmp($_POST['action'], "connect") == 0) {
+		
+			// Here with token in POST
+			if (isset($_SESSION['token']) && isset($_POST['token'])) {
+				array_walk($_POST, "sanitized");
 
-		$db = opendb("sql/app.db");
+				if (compare_token_with($_POST['token'])) {
+					// No XSRF attack, can continue
+					$token = generate_token();
+					$db = opendb("sql/app.db");
 
-		if (login($_POST['login'], $_POST['passwd'], $db)) {
-			$db = NULL;
-			header('Location: user.php');
-		}
-		else
-			$err = "Bad login or password";
+					if (login($_POST['login'], $_POST['passwd'], $db)) {
+						$db = NULL;
+						header('Location: user.php?token=' . $token);
+					}
+					else
+						$err = "Bad login or password";
 
-		$db = NULL;
+					$db = NULL;			
+				} else {
+					$err = "XSRF attack";
+				}
+				
+			} else {
+				$err = "XSRF attack";
+			}
+		} 
+	
+	} else {
+		$token = generate_token();
 	}
 
 	include('static/header.html');
@@ -37,6 +56,7 @@
 				</ul>
 				<input type="submit" value="Connect" />
 				<input type="hidden" name="action" value="connect" />
+				<input type="hidden" name="token" value="<?php echo $token; ?>" />
 			</form>
 			<p> No account? Feel free to <a href="register.php">register</a>! </p>
 	</div>

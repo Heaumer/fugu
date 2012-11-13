@@ -1,6 +1,7 @@
 <?php
 	include_once 'inc/user.php';
 	include_once 'inc/utils.php';
+	include_once 'inc/xsrf.php';
 
 	$err = "";
 
@@ -24,11 +25,12 @@
 			$err = "please, enter a login";
 		else if (strlen($email) == 0 || bademail($email))
 			$err = "please enter a valid email";
-		else if (strlen($passwd) <= 8)
+		else if (strlen($passwd) < 8)
 			$err = "password should be at least 8 characters long";
 		else if (register($login, $email, $passwd, $db)) {
 			login($login, $passwd, $db);
-			header('Location: user.php');
+			$token = generate_token();
+			header('Location: user.php?token=' . $token);
 		}
 		else
 			$err = "Login already taken. try again!";
