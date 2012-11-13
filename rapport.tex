@@ -162,20 +162,37 @@ où apparaît maintenant le trajet que l'on a rejoint.
 \section{Serveur}
 
 	\subsection{Services}
+	
+	index.php
+	
+	register.php
+	
+	user.php
+	
+	proposer\_trajet.php
+	
+	chercher\_trajet.php
+	
+	lister\_trajets.php
+	
+	disconnecte.php
+	
 	\subsection{Securité}
  		\subsubsection{Prévention de l'attaque XSRF}
  		
 Une telle attaque envoie des requêtes à l'insu de l'utilisateur depuis son propre navigateur.
-Pour la contrer, on génère un nombre aléatoire qui est stocké côté serveur.
-Pour obtenir le service habituel, il faut préciser le nombre aléatoire en paramètre de l'URL.
-Le serveur vérifie que le paramètre est bien égal au nombre aléatoire stocké côté serveur.
-Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le nombre aléatoire, il n'obtiendra
+Pour la contrer, on génère sur chaque page un jeton (ou token), qui est stocké côté serveur, avec la fonction PHP uniqid().
+Pour obtenir un service habituel, il faut préciser en mode GET ou POST le token obtenu.
+Le serveur vérifie que le paramètre (GET ou POST) est bien égal au token stocké côté serveur.
+Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le token, il n'obtiendra
 pas le service.
 
-Dans notre cas (?)
-Si l'authentification réussit, alors un nombre aléatoire est généré et placé dans l'URL de la page suivante.
-
-   
+Par exemple, pour le service de proposition de trajet, la comparaison entre le token mis en mémoire
+sur le serveur et celui passé en paramètre se fait dans le fichier proposer\_trajet.php à la ligne
+54. Sur cette ligne, on appelle en fait la fonction compare token with définie dans le fichier
+inc/xsrf.php. Quant à la génération du nouveau token, elle se fait dans le fichier à la ligne 57. 
+Sur cette ligne, on appelle la fonction generate\_token définie dans le 
+fichier inc/xsrf.php.
  		
  		\subsubsection{Prévention des attaques contre l'intégrité de la session}
  		
