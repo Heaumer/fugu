@@ -224,9 +224,10 @@ proposer\_trajet.php:57.  Sur cette ligne, on appelle la fonction
 generate\_token() définie dans le fichier inc/xsrf.php.
  		
 \subsubsection{Prévention des attaques contre l'intégrité de la session}
-On souhaite éviter que l'utilisateur ou un attaquant puisse éditer les
-cookies de session. Pour ce faire, on stocke côté serveur une empreinte
-HMAC des données sensibles envoyées à l'utilisateur. Cette empreinte est
+On souhaite éviter que l'utilisateur puisse modifier les données sensibles fournies par le serveur : celles-ci
+peuvent être stockées par exemple dans les cookies ou dans les champs hidden. 
+Pour ce faire, on stocke côté serveur une empreinte
+HMAC de ces données. Cette empreinte est
 calculée grâce à deux entrées:
 
 \begin{itemize}
@@ -234,10 +235,26 @@ calculée grâce à deux entrées:
 	\item la clé privée connue seulement du serveur.
 \end{itemize}
 
-Lors de l'envoi d'un cookie modifié par le client ou un attaquant,
+Lors de l'envoi de données altérées,
 le serveur détectera que l'empreinte de la donnée envoyée par le client
 n'est pas la même que celle stockée côté serveur. Ainsi on prévient les
 attaques visant à altérer les données de session.
+
+Dans notre cas, l'utilisation des cookies est restreinte à l'ID de session.
+Quant aux champs hidden, on les utilise uniquement pour des informations non
+sensibles.
+\begin{itemize}
+	\item Tout d'abord, ils sont utilisés pour des actions prédéfinies sur le serveur. 
+	Ainsi, si on fournit des actions inexistantes, le code ne fera aucun traitement.
+	\item Ensuite, ils sont utilisés pour maintenir les informations sur la distance
+	et sur le temps de trajet. Ces informations sont calculées dynamiquement sur les données
+	du trajet de l'utilisateur par le Javascript (API Google Maps). Par conséquent, 
+	le stockage d'un HMAC côté serveur nous semblait compromis dans le sens où le
+	client peut modifier ces informations dès qu'elles sont calculées. 
+	De plus, ces informations ont un niveau de sécurité bas et n'entravent pas
+	le bon fonctionnement de l'application basée sur les points de départ et d'arrivée. 
+	Dans l'idéal, il faudrait recalculer le temps et la distance du trajet côté serveur.
+\end{itemize}
 
 \subsubsection{Prévention des attaques de fixation}
 Pour une telle attaque, l'attaquant fixe le Session ID dans l'URL pour
@@ -249,13 +266,16 @@ modifier le fichier php.ini :
 \begin{itemize}
 	\item en activant l'option session.use\_only\_cookies afin que
 		le SID soit transmis exclusivement par cookie ;
-	\item en s'assurant que l'option session.use\_trans\_sid est désactivée.
+	\item en s'assurant que l'option session.use\_trans\_sid est désactivée. 
+	En la désactivant, on s'assure que les SID ne sont pas transmis par la méthode GET.
 \end{itemize}
-	
+
 \subsubsection{Prévention des attaques Man in the Middle}
 Pour réduire la probabilité d'une attaque de type MiM, on utilise un flux
 chiffré tel que HTTPS. Cela nous assure les propriétés de confidentialité
 et d'intégrité des paquets transmis.
+
+EXPLIQUER DEPLOIEMENT HTTPS
 
 \subsubsection{Prévention des "Replay Attacks"}
 
