@@ -99,7 +99,7 @@
 			<input type="hidden" name="action" value="proposer" />
 			<input type="hidden" name="token" value="<?php echo $token; ?>" />
 		</form>
-	</div>';
+	</div>
 				
 <?php
 
