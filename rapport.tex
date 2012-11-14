@@ -182,7 +182,7 @@ où apparaît maintenant le trajet que l'on a rejoint.
  		
 Une telle attaque envoie des requêtes à l'insu de l'utilisateur depuis son propre navigateur.
 Pour la contrer, on génère sur chaque page un jeton (ou token), qui est stocké côté serveur, avec la fonction PHP 
-openssl_random_pseudo_bytes(), qui est un générateur pseudo-aléatoire d'octets.
+openssl\_random\_pseudo\_bytes(), qui est un générateur pseudo-aléatoire d'octets.
 Pour obtenir un service habituel, il faut préciser en mode GET ou POST le token obtenu.
 Le serveur vérifie que le paramètre (GET ou POST) est bien égal au token stocké côté serveur.
 Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le token, il n'obtiendra
@@ -242,10 +242,10 @@ HTML produit. Pour ce faire, on appelle la fonction hmlspecialchars.
 		
 La prévention des attaques d'injection de code passe par :
 \begin{itemize}
-- une identification précise des entrées qui ne sont pas de confiance pour ensuite
+	\item une identification précise des entrées qui ne sont pas de confiance pour ensuite
 s'assurer que ces données ne sont pas considérées avec un niveau de sécurité plus
 haut dans le code (taint analysis) 
-- un assainissement des entrées
+	\item un assainissement des entrées
 \end{itemize}
 		
 \paragraph{Injections SQL}
