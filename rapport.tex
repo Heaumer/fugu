@@ -284,8 +284,9 @@ EXPLIQUER DEPLOIEMENT HTTPS
  		
 \subsubsection{Prévention des attaques XSS}
  		
-Cette attaque injecte du code qui sera interprété sur le navigateur
-du client : il peut s'agir d'une redirection forcée pour faire  du phising
+Cette attaque utilise le navigateur du client. Du code d'un domaine qui
+n'est pas de confiance est interprété dans le navigateur du client.
+Il peut s'agir d'une redirection forcée pour faire  du phising
 ou d'un vol de cookie avec du Javascript.
 
 Pour protéger le vol de cookie, on active l'option session.cookie\_httponly
