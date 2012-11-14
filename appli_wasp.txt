@@ -33,6 +33,3 @@ BD : SQLite
 	User : username, passwd (SHA3), email
 	Trajet : idTrajet, owner, depart, arrivee, heureDepart, heureArrive, temps, distance
 	Passager : idTrajet, username
-	
-	
-	

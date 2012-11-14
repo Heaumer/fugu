@@ -83,10 +83,10 @@
 
 L'utilisateur souhaitant faire du covoiturage doit tout d'abord s'authentifier.
 En effet, les utilisateurs possèdent leurs propres données.
-L'utilisateur s'authentifie via un formulaire de connexion, illustré dans la figure 1.
-Il doit renseigner son login et son mot de passe. S'il n'en possède pas,
-il peut s'enregistrer sur la page d'inscription. Pour cela, il doit cliquer 
-sur le lien "register".
+L'utilisateur s'authentifie via un formulaire de connexion, illustré dans la
+figure \ref{login}. Il doit renseigner son login et son mot de passe.
+S'il n'en possède pas, il peut s'enregistrer sur la page d'inscription, en cliquant
+sur le lien \og register \fg.
 
 \begin{figure}[!ht]
 	\centering
@@ -96,11 +96,13 @@ sur le lien "register".
 
 \subsection{Tableau de bord de gestion}
 
-Une fois authentifié, l'utilisateur accède à son tableau de bord, représenté en figure 2. Cet écran répertorie tous ses trajets, c'est-à-dire :
-\begin{itemize}
-	\item les trajets dont il est le conducteur dans la partie haute de la page;
-	\item les trajets dont il est le passager dans la partie basse de la page.
-\end{itemize}
+Une fois authentifié, l'utilisateur accède à son tableau de bord, représenté en
+figure \ref{dashboard}. Cet écran répertorie tous ses trajets, c'est-à-dire les
+trajets dont il est le:
+\begin{description}
+	\item[conducteur], dans la partie haute de la page;
+	\item[passager], dans la partie basse de la page.
+\end{description}
 
 \begin{figure}[!ht]
 	\centering
@@ -108,7 +110,9 @@ Une fois authentifié, l'utilisateur accède à son tableau de bord, représent�
 	\caption{\label{dashboard} Tableau de bord}
 \end{figure}
 
-L'utilisateur a accès à tout moment à ce tableau de bord en cliquant sur "Manage" sur le menu de navigation. Et il peut se déconnecter en cliquant sur "Disconnect".
+L'utilisateur a accès à tout moment à ce tableau de bord en cliquant
+sur \og Manage \fg\ dans le menu de navigation. Enfin, il peut se
+déconnecter en cliquant sur \og Disconnect \fg.
 
 \begin{figure}[!ht]
 	\centering
@@ -116,24 +120,37 @@ L'utilisateur a accès à tout moment à ce tableau de bord en cliquant sur "Man
 	\caption{\label{menu} Menu de navigation}
 \end{figure}
 
-Pour chaque trajet, les adresses de départ et d'arrivée sont affichées. Le temps (en minutes) et la distance (en kilomètres), qui ont été calculés, sont également affichés. L'utilisateur peut voir la description qui a été donnée au trajet. Généralement, ce sont des informations pratiques sur le rendez-vous.
+Pour chaque trajet, les adresses de départ et d'arrivée sont affichées.
+Le temps (en minutes) et la distance (en kilomètres), qui ont été calculés,
+sont également affichés. L'utilisateur peut voir la description qui a été
+donnée au trajet. Généralement, ce sont des informations pratiques sur
+le rendez-vous.
 
-L'utilisateur peut supprimer un trajet de son tableau de bord : pour cela, il clique sur le bouton "delete" du trajet qu'il souhaite supprimer.
-Son tableau de bord est alors mis à jour. S'il était conducteur pour ce trajet, alors le trajet n'apparaîtra plus dans le tableau de bord des autres passagers. 
+L'utilisateur peut supprimer un trajet de son tableau de bord : pour cela,
+il clique sur le bouton \og delete \fg du trajet qu'il souhaite supprimer.
+Son tableau de bord est alors mis à jour. S'il était conducteur pour ce
+trajet, alors le trajet n'apparaîtra plus dans le tableau de bord des
+autres passagers. 
 
 \subsection{Proposition de trajet}
 
-En cliquant sur "Propose" sur le menu de navigation, l'utilisateur peut proposer un trajet comme dans la figure 4. Au chargement, une carte apparaît avec une adresse
-de départ et une adresse d'arrivée par défaut. Pour indiquer son trajet, l'utilisateur a deux solutions :
+En cliquant sur "Propose" sur le menu de navigation, l'utilisateur peut
+proposer un trajet comme dans la figure \ref{propose}. Au chargement,
+une carte apparaît avec une adresse de départ et une adresse d'arrivée
+par défaut. Pour indiquer son trajet, l'utilisateur a deux solutions 
+:
 \begin{itemize}
 	\item il peut entrer les adresses de départ et destination dans les champs
 	\item il peut déplacer les marqueurs sur la carte
 \end{itemize}
 
-Dans le premier cas, les marqueurs sur la carte sont immédiatement mis à jour. Dans le second cas, les champs d'adresses sont immédiatement mis à jour.
-Et quelque soit la méthode pour indiquer le trajet, le temps de trajet et la distance sont calculés.
-L'utilisateur a ensuite la possibilité de laisser une description en remplissant le champ de texte.
-Pour terminer, il enregistre son trajet en cliquant sur le bouton "Propose", en-dessous de la description.
+Dans le premier cas, les marqueurs sur la carte sont immédiatement mis à jour.
+Dans le second cas, les champs d'adresses sont immédiatement mis à jour.
+Et quelque soit la méthode pour indiquer le trajet, le temps de trajet
+et la distance sont calculées. L'utilisateur a ensuite la possibilité de
+laisser une description en remplissant le champ de texte.
+Pour terminer, il enregistre son trajet en cliquant sur le bouton
+\og Propose \fg, en-dessous de la description.
 
 \begin{figure}[!ht]
 	\centering
@@ -141,13 +158,15 @@ Pour terminer, il enregistre son trajet en cliquant sur le bouton "Propose", en-
 	\caption{\label{propose} Proposition de trajet}
 \end{figure}
 
-Après enregistrement, l'utilisateur est redirigé sur le tableau de bord où figure le nouveau trajet créé.
+Après enregistrement, l'utilisateur est redirigé sur le tableau de
+bord où apparaît alors le trajet nouvellement créé.
 
 \subsection{Recherche de trajet}
 
-En cliquant sur "Search" sur le menu de navigation, l'utilisateur peut chercher un trajet existant. Le principe est le même que pour la création
-de trajet à l'exception que l'utilisateur ne renseigne aucun champ de description. Après un clic sur le bouton "Search", une liste de trajets
-est affichée. 
+En cliquant sur \og Search \fg sur le menu de navigation, l'utilisateur
+peut chercher un trajet existant. Le principe est le même que pour la création
+de trajet à l'exception que l'utilisateur ne renseigne aucun champ de description.
+Après un clic sur le bouton \ og Search \fg, une liste de trajets est affichée. 
 
 \begin{figure}[!ht]
 	\centering
@@ -155,96 +174,107 @@ est affichée.
 	\caption{\label{search} Recherche de trajet}
 \end{figure}
 
-Pour chaque trajet, on peut s'inscrire en tant que passager. Il faut noter que les trajets sur lesquels on s'est déjà inscrit ne figurent
-pas dans la recherche. Pour s'inscrire, on clique sur le bouton "join" en face du trajet. On est alors redirigé vers le tableau de bord
-où apparaît maintenant le trajet que l'on a rejoint.
+Pour chaque trajet, on peut s'inscrire en tant que passager. Il faut
+noter que les trajets sur lesquels on s'est déjà inscrit ne figurent
+pas dans la recherche. Pour s'inscrire, on clique sur le bouton \og Join \fg
+en face du trajet. On est alors redirigé vers le tableau de bord où apparaît
+maintenant le trajet que l'on a rejoint.
 
 \section{Serveur}
+\subsection{Services}
 
-	\subsection{Services}
-	
-	index.php
-	
-	register.php
-	
-	user.php
-	
-	proposer\_trajet.php
-	
-	chercher\_trajet.php
-	
-	lister\_trajets.php
-	
-	disconnecte.php
-	
-	\subsection{Securité}
+\begin{description}
+	\item[index.php]
+	\item[register.php]
+	\item[user.php]
+	\item[proposer\_trajet.php]
+	\item[chercher\_trajet.php]
+	\item[lister\_trajets.php]
+	\item[disconnecte.php]
+\end{description}
+
+\subsection{Securité}
  		\subsubsection{Prévention de l'attaque XSRF}
  		
-Une telle attaque envoie des requêtes à l'insu de l'utilisateur depuis son propre navigateur.
-Pour la contrer, on génère sur chaque page un jeton (ou token), qui est stocké côté serveur, avec la fonction PHP 
-openssl\_random\_pseudo\_bytes(), qui est un générateur pseudo-aléatoire d'octets.
-Pour obtenir un service habituel, il faut préciser en mode GET ou POST le token obtenu.
-Le serveur vérifie que le paramètre (GET ou POST) est bien égal au token stocké côté serveur.
-Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le token, il n'obtiendra
-pas le service.
+Une telle attaque envoie des requêtes à l'insu de l'utilisateur
+depuis son propre navigateur. Pour la contrer, on génère sur
+chaque page un jeton (ou token), qui est stocké côté serveur,
+avec la fonction PHP  \textit{openssl\_random\_pseudo\_bytes()},
+qui est un générateur pseudo-aléatoire d'octets.
 
-Par exemple, pour le service de proposition de trajet, la comparaison entre le token mis en mémoire
-sur le serveur et celui passé en paramètre se fait dans le fichier proposer\_trajet.php à la ligne
-54. Sur cette ligne, on appelle en fait la fonction compare token with définie dans le fichier
-inc/xsrf.php. Quant à la génération du nouveau token, elle se fait dans le fichier à la ligne 57. 
-Sur cette ligne, on appelle la fonction generate\_token définie dans le 
-fichier inc/xsrf.php.
+Pour obtenir un service habituel, il faut préciser en mode GET
+ou POST le token obtenu. Le serveur vérifie que le paramètre
+(GET ou POST) est bien égal au token stocké côté serveur.
+Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le
+token, il n'obtiendra pas le service.
+
+Par exemple, pour le service de proposition de trajet, la comparaison entre
+le token mis en mémoire sur le serveur et celui passé en paramètre se fait
+dans le fichier proposer\_trajet.php:54. Sur cette ligne, on appelle en
+fait la fonction compare token with définie dans le fichier
+inc/xsrf.php. Quant à la génération du nouveau token, elle se fait dans
+proposer\_trajet.php:57.  Sur cette ligne, on appelle la fonction
+generate\_token() définie dans le fichier inc/xsrf.php.
  		
- 		\subsubsection{Prévention des attaques contre l'intégrité de la session}
- 		
-On souhaite éviter que l'utilisateur ou un attaquant puisse éditer les cookies de session.
-Ainsi, on stocke côté serveur une empreinte HMAC des données sensibles envoyées à l'utilisateur.
-Cette empreinte est calculée grâce à deux entrées :
+\subsubsection{Prévention des attaques contre l'intégrité de la session}
+On souhaite éviter que l'utilisateur ou un attaquant puisse éditer les
+cookies de session. Pour ce faire, on stocke côté serveur une empreinte
+HMAC des données sensibles envoyées à l'utilisateur. Cette empreinte est
+calculée grâce à deux entrées:
+
 \begin{itemize}
 	\item la donnée que l'on souhaite passer à l'utilisateur ;
 	\item la clé privée connue seulement du serveur.
 \end{itemize}
-Lors de l'envoi d'un cookie modifié par le client ou un attaquant, le serveur détectera que l'empreinte
-de la donnée envoyée par le client n'est pas la même que celle stockée côté serveur.
-Ainsi on prévient les attaques visant à altérer les données de session.
 
-		\subsubsection{Prévention des attaques de fixation}
-		
-Pour une telle attaque, l'attaquant fixe le Session ID dans l'URL pour un autre utilisateur.
-Il envoie ensuite cette URL à l'utilisateur. Ce dernier s'authentifie et l'attaquant peut alors
-utiliser la session de l'utilisateur car il connait le SID.
-Pour prévenir cette attaque, il faut modifier le fichier php.ini :
+Lors de l'envoi d'un cookie modifié par le client ou un attaquant,
+le serveur détectera que l'empreinte de la donnée envoyée par le client
+n'est pas la même que celle stockée côté serveur. Ainsi on prévient les
+attaques visant à altérer les données de session.
+
+\subsubsection{Prévention des attaques de fixation}
+Pour une telle attaque, l'attaquant fixe le Session ID dans l'URL pour
+un autre utilisateur. Il envoie ensuite cette URL à l'utilisateur. Ce
+dernier s'authentifie et l'attaquant peut alors utiliser la session de
+l'utilisateur car il connait le SID. Pour prévenir cette attaque, il faut
+modifier le fichier php.ini :
+
 \begin{itemize}
-	\item en activant l'option session.use\_only\_cookies afin que le SID soit transmis exclusivement par cookie ;
+	\item en activant l'option session.use\_only\_cookies afin que
+		le SID soit transmis exclusivement par cookie ;
 	\item en s'assurant que l'option session.use\_trans\_sid est désactivée.
 \end{itemize}
 	
-		\subsubsection{Prévention des attaques Man in the Middle}
-		
-Afin qu'une attaque du type Man in the Middle n'opère pas, on utilise un flux chiffré tel que HTTPS.
-Cela nous assure les propriétés de confidentialité et d'intégrité des paquets transmis.
+\subsubsection{Prévention des attaques Man in the Middle}
+Pour réduire la probabilité d'une attaque de type MiM, on utilise un flux
+chiffré tel que HTTPS. Cela nous assure les propriétés de confidentialité
+et d'intégrité des paquets transmis.
 
-		\subsubsection{Prévention des "Replay Attacks"}
+\subsubsection{Prévention des "Replay Attacks"}
 
 		Replay attack Wiki
 		Possible même avec HTTPS...
  		
- 		\subsubsection{Prévention des attaques XSS}
+\subsubsection{Prévention des attaques XSS}
  		
-Cette attaque injecte du code qui sera interprété sur le navigateur du client : il peut s'agir d'une redirection forcée pour faire 
-du phising ou d'un vol de cookie avec du Javascript.
-Pour protéger le vol de cookie, on active l'option session.cookie\_httponly dans le fichier php.ini.
-Cela permet de rendre les cookies HttpOnly, c'est-à-dire qu'ils ne seront pas accessibles par des langages de script tels que Javascript.
-Il faut également vérifier les données utilisateur comme dans le cas des attaques d'injections de code en retraitant le code
+Cette attaque injecte du code qui sera interprété sur le navigateur
+du client : il peut s'agir d'une redirection forcée pour faire  du phising
+ou d'un vol de cookie avec du Javascript.
+
+Pour protéger le vol de cookie, on active l'option session.cookie\_httponly
+dans le fichier php.ini. Cela permet de rendre les cookies HttpOnly,
+c'est-à-dire qu'ils ne seront pas accessibles par des langages de script
+tels que Javascript. Il faut également vérifier les données utilisateur
+comme dans le cas des attaques d'injections de code en retraitant le code
 HTML produit. Pour ce faire, on appelle la fonction hmlspecialchars.
  		
-		\subsubsection{Prévention des attaques d'injection de code}
-		
+\subsubsection{Prévention des attaques d'injection de code}
 La prévention des attaques d'injection de code passe par :
 \begin{itemize}
-	\item une identification précise des entrées qui ne sont pas de confiance pour ensuite
-s'assurer que ces données ne sont pas considérées avec un niveau de sécurité plus
-haut dans le code (taint analysis) 
+	\item une identification précise des entrées qui ne sont pas de
+		confiance pour ensuite s'assurer que ces données ne sont pas
+		considérées avec un niveau de sécurité plus haut dans le code
+		(taint analysis) 
 	\item un assainissement des entrées
 \end{itemize}
 		
@@ -253,9 +283,9 @@ haut dans le code (taint analysis)
 \\
 Il faut vérifier les données de l'utilisateur et échapper les caractères spéciaux.
 Dans notre cas, nous utilisons des requêtes préparées en PHP.
-Tout d'abord, on écrit une requête à trous sans les paramètres.
-Ensuite, la requête est analysée et compilée.
-Enfin, les paramètres sont donnés et le driver MySQL pour PHP gère automatiquement l'échappement des caractères spéciaux.
+Tout d'abord, on écrit une requête à trous sans les paramètres. Ensuite, la
+requête est analysée et compilée. Enfin, les paramètres sont donnés et le driver
+MySQL pour PHP gère automatiquement l'échappement des caractères spéciaux.
 Concernant la vérification, elle est faite en utilisant des expressions régulières.			
 		
 \paragraph{Injections Javascript}
@@ -265,9 +295,9 @@ On veut éviter qu'un utilisateur insère un script Javascript dans un champ.
 Pour pallier ce problème, on transforme les caractères spéciaux du texte entré afin
 qu'un éventuel script Javascript deviennent du texte non interprété.
 Pour cela, on utilise la fonction sanatize du fichier utils.php. Cette fonction appelle
-la fonction PHP htmlspecialchars.
+la fonction PHP \textit{htmlspecialchars()}.
 		
-		\subsubsection{Prévention des attaques RFI / LFI}
+\subsubsection{Prévention des attaques RFI/LFI}
 		
 \paragraph{RFI}
 ~~\\
@@ -283,10 +313,11 @@ On n'inclut pas d'URL externe dans le code PHP.
 Par sécurité dans le fichier php.ini, on désactive l'option allow\_url\_include 
 Cela nous protège des attaques RFI.
 		
-		\subsubsection{D'autres éléments de prévention}
+\subsubsection{D'autres éléments de prévention}
 		
-Pour limiter les vols de cookies, lors d'une déconnexion, les cookies sont effacés de la machine ciente.
-Cela permet, par exemple, de limiter des vols causés par une intrusion sur le disque dur de utilisateur.
+Pour limiter les vols de cookies, lors d'une déconnexion, les cookies sont
+effacés de la machine ciente. Cela permet, par exemple, de limiter des vols
+causés par une intrusion sur le disque dur de utilisateur.
  		
 \section{Client}
 
