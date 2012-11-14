@@ -181,7 +181,8 @@ où apparaît maintenant le trajet que l'on a rejoint.
  		\subsubsection{Prévention de l'attaque XSRF}
  		
 Une telle attaque envoie des requêtes à l'insu de l'utilisateur depuis son propre navigateur.
-Pour la contrer, on génère sur chaque page un jeton (ou token), qui est stocké côté serveur, avec la fonction PHP uniqid().
+Pour la contrer, on génère sur chaque page un jeton (ou token), qui est stocké côté serveur, avec la fonction PHP 
+openssl_random_pseudo_bytes(), qui est un générateur pseudo-aléatoire d'octets.
 Pour obtenir un service habituel, il faut préciser en mode GET ou POST le token obtenu.
 Le serveur vérifie que le paramètre (GET ou POST) est bien égal au token stocké côté serveur.
 Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le token, il n'obtiendra
@@ -218,9 +219,10 @@ Pour prévenir cette attaque, il faut modifier le fichier php.ini :
 	\item en s'assurant que l'option session.use\_trans\_sid est désactivée.
 \end{itemize}
 	
-		\subsubsection{Prévention des attaques contre la confidentialité des données de session}
+		\subsubsection{Prévention des attaques Man in the Middle}
 		
 Afin qu'une attaque du type Man in the Middle n'opère pas, on utilise un flux chiffré tel que HTTPS.
+Cela nous assure les propriétés de confidentialité et d'intégrité des paquets transmis.
 
 		\subsubsection{Prévention des "Replay Attacks"}
 
@@ -238,10 +240,18 @@ HTML produit. Pour ce faire, on appelle la fonction hmlspecialchars.
  		
 		\subsubsection{Prévention des attaques d'injection de code}
 		
+La prévention des attaques d'injection de code passe par :
+\begin{itemize}
+- une identification précise des entrées qui ne sont pas de confiance pour ensuite
+s'assurer que ces données ne sont pas considérées avec un niveau de sécurité plus
+haut dans le code (taint analysis) 
+- un assainissement des entrées
+\end{itemize}
+		
 \paragraph{Injections SQL}
 ~~\\
 \\
-La solution est de vérifier les données de l'utilisateur et d'échapper les caractères spéciaux.
+Il faut vérifier les données de l'utilisateur et échapper les caractères spéciaux.
 Dans notre cas, nous utilisons des requêtes préparées en PHP.
 Tout d'abord, on écrit une requête à trous sans les paramètres.
 Ensuite, la requête est analysée et compilée.

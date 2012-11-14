@@ -1,7 +1,9 @@
 <?php
 
 function generate_token() {
-	$token = sha1(uniqid());
+	$bytes = openssl_random_pseudo_bytes(15);
+	$token = bin2hex($bytes);
+	//$token = sha1(uniqid());
 	$_SESSION['token'] = $token;
 	return $token;
 }
