@@ -51,7 +51,10 @@
   \vfil
   \vfil
   \vfil
-  \vfil  
+  \begin{figure}[!ht]
+  	\centering
+  	\includegraphics[scale=1]{imgs/fugu.png}
+  \end{figure}
   \vfil
   \vfil
   \vfil
@@ -120,6 +123,8 @@ déconnecter en cliquant sur \og Disconnect \fg.
 	\caption{\label{menu} Menu de navigation}
 \end{figure}
 
+\newpage
+
 Pour chaque trajet, les adresses de départ et d'arrivée sont affichées.
 Le temps (en minutes) et la distance (en kilomètres), qui ont été calculés,
 sont également affichés. L'utilisateur peut voir la description qui a été
@@ -173,6 +178,7 @@ Après un clic sur le bouton \ og Search \fg, une liste de trajets est affichée
 	\includegraphics[scale=0.5]{Search.png}
 	\caption{\label{search} Recherche de trajet}
 \end{figure}
+\newpage
 
 Pour chaque trajet, on peut s'inscrire en tant que passager. Il faut
 noter que les trajets sur lesquels on s'est déjà inscrit ne figurent
@@ -183,18 +189,19 @@ maintenant le trajet que l'on a rejoint.
 \section{Serveur}
 \subsection{Services}
 
+Les différentes pages fournissent les services suivants:
 \begin{description}
-	\item[index.php]
-	\item[register.php]
-	\item[user.php]
-	\item[proposer\_trajet.php]
-	\item[chercher\_trajet.php]
-	\item[lister\_trajets.php]
-	\item[disconnecte.php]
+	\item[index.php] connexion;
+	\item[register.php] inscription;
+	\item[user.php] listes des trajets de l'utilisateur;
+	\item[proposer\_trajet.php] enregistrer un nouveau trajet;
+	\item[chercher\_trajet.php] chercher un trajet existant;
+	\item[lister\_trajets.php] lister les trajets existants;
+	\item[disconnect.php] déconnexion;
 \end{description}
 
 \subsection{Securité}
- 		\subsubsection{Prévention de l'attaque XSRF}
+\subsubsection{Prévention de l'attaque XSRF}
  		
 Une telle attaque envoie des requêtes à l'insu de l'utilisateur
 depuis son propre navigateur. Pour la contrer, on génère sur
