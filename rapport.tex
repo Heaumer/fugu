@@ -360,7 +360,7 @@ Cela nous protège des attaques RFI.
 \subsubsection{Prévention des attaques par distingueur}
 On utilise des systèmes de hashage \og robustes \fg, par exemple, on
 préfère SHA à MD5. Le générateur de nombre aléatoire utilisés est \textit{/dev/random}
-sous UNIX: en effet, bien que plus long que son homologue \texitit{/dev/urandom},
+sous UNIX: en effet, bien que plus long que son homologue \textit{/dev/urandom},
 il fournit des nombres \og plus \fg\ aléatoires.
 		
 \subsubsection{D'autres éléments de prévention}
@@ -378,7 +378,7 @@ Une protection basique contre les attaques de type \textbf{DDoS} est faisable en
 utilisant des modules comme \textit{mod\_evasive} ou \textit{mod\_slotlimit} dans
 le cadre d'un déploiement sous apache$2$.
 
-Les mots de passes sont hashés (\textit{hash('sha512', $password)}) avant d'être
+Les mots de passes sont hashés (\textit{hash('sha512', \$password)}) avant d'être
 stockés dans la base de données. Cela évite une divulgation des mots de passe si
 le contenu de la bdd venait à être compromis, ce qui est une bonne idée lorsque
 un utilisateur utilise le même mot de passe pour plusieurs comptes sur Internet.
@@ -388,7 +388,60 @@ un utilisateur utilise le même mot de passe pour plusieurs comptes sur Internet
 SOPHIE TU FAIS CETTE PARTIE. JE VAIS ME FAIRE UN THÉ.
 \subsection{Javascript}
 \subsubsection{Utilisation de la Prototype Chain}
-héritage §!
+Javascript est un langage orienté objet à prototype. Ce dernier point
+le différencie des langages objets dits à classes (Smalllalk, Java, etc.).
+
+En js, un objet possède une référence à un autre objet appellé son prototype.
+Celui-ci permet de mettre en place une relation d'héritage.
+
+Supposons la relation de prototype suivante : on définit $a$ comme une variable
+contenant un champ entier $v$ de valeur $1$, puis $b$ comme un objet dont
+le protoype est l'objet $a$:
+\begin{verbatim}
+js> var a = {v: 1};
+js> var b = Object.create(a);
+\end{verbatim}
+
+Lorsque l'on essaye d'accéder à une propriété de $b$, la chaîne de prototype
+est remontée jusqu'à trouver ladite propriété:
+\begin{verbatim}
+js> b.v
+1
+js> b.baz
+js>
+\end{verbatim}
+
+Dans le premier cas, aucun champs $v$ n'existe dans $b$; on regarde donc
+dans son prototype, où l'on trouve bien ce champ. Dans le second, ni $b$
+ni $a$ ne contiennent de champ $v$. On remonte donc au protoype de $a$,
+qui est inexistant (plus exactement, il vaut $null$). Aucune valeur n'est
+donc retournée.
+
+L'exemple suivant permet de s'assurer que la relation de prototype fonctionne
+bien sur des objets (et pas sur des interfaces par exemple):
+\begin{verbatim}
+js> a.v = 5
+5
+js> b.v
+5
+/*
+ * ici, on ne remonte pas la chaîne de prototype : un nouveau champ
+ * v est crée dans b.
+ */
+js> b.v = 42
+42
+js> a.v
+5
+/*
+ * certaines implémentations de javascript permettent d'accèder au
+ * prototype d'un objet via la notation non standard __proto__:
+ */
+js> b.__proto__.v = 42
+42
+js> a.v
+42
+\end{verbatim}
+
 \subsubsection{Utilisation de la Scope Chain}
 variable globale utilisée dans une fonction?
 (var défine dans objet globale; quand new() crée
