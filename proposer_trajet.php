@@ -82,12 +82,12 @@
 			<h3>Departure</h3>
 			<div id="depart">
 				<p>Coordinates : ( <span id="latA"></span> , <span id="longA"></span> )</p>
-				<p>Address<input size="40" onChange="changerPoint(this, \'depart\');" type="text" name="adresseA" id="adresseA" value="" /></p>
+				<p>Address<input size="40" onChange="changerPoint(this, 'depart');" type="text" name="adresseA" id="adresseA" value="" /></p>
 			</div>
 			<h3>Arrival</h3>
 			<div id="arrivee">
 				<p>Coordinates : ( <span id="latB"></span> , <span id="longB"></span> )</p>
-				<p>Address<input size="40" onChange="changerPoint(this, \'arrivee\');" type="text" name="adresseB" id="adresseB" value="" /></p>
+				<p>Address<input size="40" onChange="changerPoint(this, 'arrivee');" type="text" name="adresseB" id="adresseB" value="" /></p>
 			</div>
 			<p><strong>Total distance : </strong><span id="distanceTotale"></span></p>
 			<input type="hidden" name="distanceTotale" id="dT" value="" />
@@ -99,7 +99,7 @@
 			<input type="hidden" name="action" value="proposer" />
 			<input type="hidden" name="token" value="<?php echo $token; ?>" />
 		</form>
-	</div>';
+	</div>
 				
 <?php
 
