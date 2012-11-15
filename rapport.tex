@@ -454,6 +454,7 @@ et des données de l'itinéraire comme la distance et le temps. Pour cela,
 un évènement est créé : l'objet \textit{DirectionsRenderer} écoute les modifications sur la carte.
 
 \subsection{Javascript}
+
 \subsubsection{Utilisation de la Prototype Chain}
 Javascript est un langage orienté objet à prototype. Ce dernier point
 le différencie des langages objets dits à classes (Smalllalk, Java, etc.).
@@ -511,6 +512,11 @@ js> a.v
 
 \subsubsection{Utilisation de la Scope Chain}
 
+La règle de la scope chain est la suivante :
+Si une propriété n'est pas trouvée dans le contexte de l'objet courant,
+alors une recherche est lancée dans l'objet parent, et ainsi de suite
+jusqu'à éventuellement atteindre l'objet global. 
+
 On utilise par exemple la variable \textit{coordonneesDepart}, qui est en
  fait une propriété de l'objet \textit{global}, dans la fonction \textit{init} 
  (\textit{js/carte.js:66}). 
@@ -518,7 +524,7 @@ La définition de cette fonction est un objet. Ainsi,
 quand on utilise la variable \textit{coordonneesDepart} dans cette fonction,
 on cherche s'il existe une propriété définie dans l'objet courant
 (la fonction).
-Comme ce n'est pas le cas, on remonte la scope chain et on trouve
+Comme ce n'est pas le cas, on remonte la scope chain d'un cran et on trouve
 la propriété \textit{coordonneesDepart} dans l'objet \textit{global}.
 
 \subsubsection{Utilisation du mot-clé this}
