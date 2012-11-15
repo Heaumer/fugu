@@ -515,7 +515,7 @@ js> a.v
 La règle de la scope chain est la suivante :
 Si une propriété n'est pas trouvée dans le contexte de l'objet courant,
 alors une recherche est lancée dans l'objet parent, et ainsi de suite
-jusqu'à éventuellement atteindre l'objet global. 
+jusqu'à éventuellement atteindre l'objet \textit{global}. 
 
 On utilise par exemple la variable \textit{coordonneesDepart}, qui est en
  fait une propriété de l'objet \textit{global}, dans la fonction \textit{init} 
@@ -528,14 +528,50 @@ Comme ce n'est pas le cas, on remonte la scope chain d'un cran et on trouve
 la propriété \textit{coordonneesDepart} dans l'objet \textit{global}.
 
 \subsubsection{Utilisation du mot-clé this}
-proposer\_trajet.php:98
+
+Le mot-clé \textit{this} est une propriété du contexte d'exécution.
+Le mot-clé \textit{this} est donc une référence vers l'objet \textit{global} sauf
+dans certains cas. Par exemple, si \textit{this} est utilisé dans une fonction,
+alors la valeur de \textit{this} dépend du contexte d'exécution lors de l'appel
+de la fonction. 
+
+Nous utilisons le mot-clé \textit{this} par exemple dans \textit{proposer\_trajet.php:98}.
+La valeur de \textit{this} est ici \textit{global}.
+
 \subsubsection{Utilisation de la récursivité}
+
+Nous utilisons des structures de contrôle de type boucle for, par exemple
+dans \textit{proposer\_trajet.php:37}.
+
 \subsubsection{Manipulation du DOM}
 
+L'accès aux éléments de la page HTML se base sur l'id des balises et se fait dans le Javascript
+avec \textit{document.getElementById()}.
+Des manipulations du DOM sont effectuées depuis le Javascript.
+En effet, on modifie par exemple la valeur de champs hidden dans \textit{proposer\_trajet.php:45}.
+Ou encore, on remplace le contenu d'une balise dans \textit{proposer\_trajet.php:44}.
+
 \subsection{Securité} 
+
 \subsubsection{Prévention des failles Javascript}
-iframe instead of script to avoid sharing global objects
-between mashup \& trolol.
+
+Concernant la sécurité, l'objet \textit{global} ne doit pas être délivré
+à l'attaquant puisque l'intégralité de la page y est accessible. De plus,
+on peut y trouver les cookies. 
+
+On a donc vu dans la deuxième partie de ce rapport, qu'il fallait prévenir
+les attaques de type XSS et injection de code.
+
+Ici, du code extérieur est inclus. On utilise le mashhup avec la balise \textit{script}.
+Or, en utilisant \textit{script}, la mémoire de la page intégrant le mashup et la mémoire du mashup 
+ne sont pas scindées : l'objet \textit{global} est partagé. Le code du script inclus peut donc accéder
+à l'objet \textit{global}.
+
+Une alternative pour intégrer un tel mashup serait d'utiliser la balise \textit{iframe} pour avoir
+des mémoires séparées. Cependant, il faudrait mettre en place un mécanisme de communication entre les deux
+parties avec \textit{postMessage}.
+
+Cependant, le code intégré ici provient de Google, qui est considéré comme un domaine de confiance.
 
 \newpage
 \appendix
