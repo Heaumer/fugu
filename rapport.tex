@@ -372,6 +372,11 @@ Une protection basique contre les attaques de type \textbf{DDoS} est faisable en
 utilisant des modules comme \textit{mod\_evasive} ou \textit{mod\_slotlimit} dans
 le cadre d'un déploiement sous apache$2$.
 
+Les mots de passes sont hashés (\textit{hash('sha512', $password)}) avant d'être
+stockés dans la base de données. Cela évite une divulgation des mots de passe si
+le contenu de la bdd venait à être compromis, ce qui est une bonne idée lorsque
+un utilisateur utilise le même mot de passe pour plusieurs comptes sur Internet.
+
 \section{Client}
 \subsection{Google Maps}
 SOPHIE TU FAIS CETTE PARTIE. JE VAIS ME FAIRE UN THÉ.
@@ -393,5 +398,64 @@ proposer\_trajet.php:98
 \subsubsection{Prévention des failles Javascript}
 iframe instead of script to avoid sharing global objects
 between mashup \& trolol.
+
+\newpage
+\appendix
+\section{php.ini}
+On donne ici un extrait d'un \textit{php.ini} pouvant être
+utilisé par notre application.
+
+\begin{verbatim}
+; don't give unecessary informations about PHP
+expose_php = Off
+
+; restrict execution and input processing time
+max_execution_time = 30
+max_input_time = 60
+
+; limit the memory used by a script
+memory_limit = 128M
+
+; report every error and log them
+error_reporting = E_ALL
+log_errors = On
+log_errors_max_len = 1024
+report_memleaks = On
+; no need for pretty error messages
+html_errors = Off
+
+; don't give unecessary debug informations to users
+display_errors = Off
+display_startup_errors = Off
+
+; default mimetype and charset
+default_mimetype = "text/html
+default_charset = "UTF-8"
+
+[Session]
+; use files to store/retrieve session data
+session.save_handler = files
+session.save_path = "/var/lib/php"
+
+; do use cookie, secure cookie
+session.use_cookies = 1
+session.cookie_secure = 1
+; store session ID in cookie
+session.use_only_cookies = 1
+session.name = PHPSESSID
+
+; cookie unavailable from js
+session.cookie_httponly = 1
+
+; use /dev/random over /dev/urandom as an entropy generator
+; slower but more resistant to statistical attacks
+session.entropy_file = /dev/random
+
+; avoid sending SID within an URL
+session.use_trans_sid = 0
+
+; 1 : SHA-1 (160b), 0 : MD5 (128b)
+session.hash_function = 1
+\end{verbatim}
 
 \end{document}
