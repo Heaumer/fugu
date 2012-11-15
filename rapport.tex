@@ -326,6 +326,8 @@ Tout d'abord, on écrit une requête à trous sans les paramètres. Ensuite, la
 requête est analysée et compilée. Enfin, les paramètres sont donnés et le driver
 SQLite pour PHP gère automatiquement l'échappement des caractères spéciaux.
 Concernant la vérification, elle est faite en utilisant des expressions régulières.			
+Par exemple, on vérifie un format raisonable pour les addresses emails dans
+\textit{inc/utils.php:38}.
 
 Par exemple pour tester si un utilisateur existe, on prépare la requête
 dans \textit{inc/user.php:19}, puis on l'exécute \textit{inc/user.php:25}.
@@ -360,10 +362,6 @@ Cela nous protège des attaques RFI.
 Pour limiter les vols de cookies, lors d'une déconnexion, les cookies sont
 effacés de la machine ciente. Cela permet, par exemple, de limiter des vols
 causés par une intrusion sur le disque dur de utilisateur.
-
-Avant d'être traitée plus en profondeur, certaines données utilisateur
-sont validées à l'aide d'expressions régulières. Par exemple, on vérifie
-un format raisonable pour les addresses emails dans \textit{inc/utils.php:38}.
 
 Au niveau du déploiement, le serveur HTTP peut-être placé dans un environnement
 virtualisé (VM), ou pseudo-virtualisé (chroot, BSD jail) pour éviter de compromettre
