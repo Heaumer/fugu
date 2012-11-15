@@ -277,11 +277,14 @@ et d'intégrité des paquets transmis.
 
 EXPLIQUER DEPLOIEMENT HTTPS
 
-\subsubsection{Prévention des "Replay Attacks"}
+\subsubsection{Prévention des \og Replay Attacks \fg}
+Les replay attacks permettent à un attaquant d'envoyer plusieurs fois un
+même paquet (eg. celui de connexion).
 
-		Replay attack Wiki
-		Possible même avec HTTPS...
- 		
+Comme la protection des failles CSRF/XSRF intègre la génération d'un
+token à chaque nouvelle action de l'utilisateur, la retransmission d'un
+même paquet est impossible.
+
 \subsubsection{Prévention des attaques XSS}
  		
 Cette attaque utilise le navigateur du client. Du code d'un domaine qui
@@ -313,17 +316,20 @@ Il faut vérifier les données de l'utilisateur et échapper les caractères sp�
 Dans notre cas, nous utilisons des requêtes préparées en PHP.
 Tout d'abord, on écrit une requête à trous sans les paramètres. Ensuite, la
 requête est analysée et compilée. Enfin, les paramètres sont donnés et le driver
-MySQL pour PHP gère automatiquement l'échappement des caractères spéciaux.
+SQLite pour PHP gère automatiquement l'échappement des caractères spéciaux.
 Concernant la vérification, elle est faite en utilisant des expressions régulières.			
-		
+
+Par exemple pour tester si un utilisateur existe, on prépare la requête
+dans \textit{inc/user.php:19}, puis on l'exécute \textit{inc/user.php:25}.
+
 \paragraph{Injections Javascript}
 ~~\\
 \\
 On veut éviter qu'un utilisateur insère un script Javascript dans un champ.
 Pour pallier ce problème, on transforme les caractères spéciaux du texte entré afin
 qu'un éventuel script Javascript deviennent du texte non interprété.
-Pour cela, on utilise la fonction sanatize du fichier utils.php. Cette fonction appelle
-la fonction PHP \textit{htmlspecialchars()}.
+Pour cela, on utilise la fonction sanitized d'\textit{inc/utils.php}. Cette fonction
+appelle la fonction PHP \textit{htmlspecialchars()}, \texitit{inc/utils.php:124}.
 		
 \subsubsection{Prévention des attaques RFI/LFI}
 		
