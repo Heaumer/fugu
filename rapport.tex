@@ -221,7 +221,7 @@ dans le fichier \textit{proposer\_trajet.php:54}. Sur cette ligne, on appelle en
 fait la fonction \textit{compare\_token\_with()} définie dans le fichier
 inc/xsrf.php. Quant à la génération du nouveau token, elle se fait dans
 \textit{proposer\_trajet.php:57}.  Sur cette ligne, on appelle la fonction
-\textit{generate\_token()} définie dans le fichier inc/xsrf.php.
+\textit{generate\_token()} définie dans le fichier \textit{inc/xsrf.php}.
  		
 Le fait de regénérer le token à chaque requête est gênant si on
 souhaite ouvrir deux onglets par exemple. En effet, l'une des deux
@@ -385,13 +385,80 @@ un utilisateur utilise le même mot de passe pour plusieurs comptes sur Internet
 
 \section{Client}
 \subsection{Google Maps}
-SOPHIE TU FAIS CETTE PARTIE. JE VAIS ME FAIRE UN THÉ.
+
+Pour dialoguer avec le mashup intégré dans la page, on utilise l'API Google Maps.
+
+\subsubsection{Carte, coordonnées et adresses}
+
+\paragraph{Service \textit{Geocode}}
+~~\\
+\\
+Tout d'abord, on utilise le type Map pour obtenir le mashup et le lier à un élément 
+de notre page.
+Et on utilise le service Geocode de Google qui permet de traduire 
+des adresses en coordonnées et inversement.
+Par exemple, dans \textit{js/carte.js:8}, il y a création d'un objet \textit{Geocode} 
+et appel de la fonction \textit{geocode()}. On définit une fonction de callback pour 
+la réponse du service où on peut alors accéder au résultat de la traduction.
+
+\paragraph{Type \textit{LatLng}}
+~~\\
+\\
+Les points (coordonnées) sont représentés par le type \textit{LatLng}.
+On l'utilise notamment pour définir le point de centre de la carte
+au chargement et ensuite, pour définir les coordonnées des points
+de départ et d'arrivée.
+
+\subsubsection{Calcul des itinéraires}
+
+\paragraph{Service \textit{DirectionsService}}
+~~\\
+\\
+On utilise le service \textit{DirectionsService}.
+Effectivement, pour calculer les données de l'itinéraire (temps et distance), 
+on a besoin que l'API de Google détermine les différents segments de 
+l'itinéraire. Ainsi, on appelle la fonction \textit{route()} 
+de \textit{DirecionsService} où on spécifie :
+- les coordonnées de départ ;
+- les coordonnées d'arrivée ;
+- le moyen de locomotion (ici voiture).
+On définit là aussi une fonction de callback pour la réponse.
+Un exemple d'appel est disponible dans \textit{js/carte.js:91}
+On obtient dans le résultat de la réponse de type \textit{DirectionsResult} 
+différents tableaux. Par exemple, on obtient
+un premier tableau avec des points (coordonnées) appartenant à l'itinéraire
+calculé. On obtient également un tableau avec des segments de l'itinéraire.
+Le second tableau nous sert à calculer la distance totale et le temps total
+car chaque segment contient une information sur son temps et sa distance. 
+Voir la fonction \textit{calculerDistanceEtTemps} dans \textit{js/carte.js:29}).
+
+\paragraph{Synchronisation sur la carte}
+~~\\
+\\
+Quant à l'objet \textit{DirectionsRenderer}, il nous permet de synchroniser sur l'objet
+\textit{Map} l'itinéraire calculé de type \textit{DirectionsResult}. C'est cet objet
+qui affiche l'itinéraire en bleu sur la carte.
+Ainsi, à chaque réponse de la méthode \textit{route()}, on met à jour l'information
+d'itinéraire \textit{DirectionsResult} dans l'objet \textit{DirectionsRenderer} pour que
+l'affichage de la carte soit modifié et bien entendu, on calcule les informations
+de distance et de durée. Cela est fait à chaque fois que l'utilisateur modifie
+les champs d'adresse dans le formulaire. 
+
+\paragraph{Utilisation d'un listener}
+~~\\
+\\
+Mais il faut également que les actions de l'utilisateur sur la carte soient prises en compte.
+En effet, un déplacement des marqueurs ou un déplacement de l'itinéraire en bleu doit
+provoquer une mise à jour des marqueurs, des adresses dans les champs du formulaire,
+et des données de l'itinéraire comme la distance et le temps. Pour cela,
+un évènement est créé : l'objet \textit{DirectionsRenderer} écoute les modifications sur la carte.
+
 \subsection{Javascript}
 \subsubsection{Utilisation de la Prototype Chain}
 Javascript est un langage orienté objet à prototype. Ce dernier point
 le différencie des langages objets dits à classes (Smalllalk, Java, etc.).
 
-En js, un objet possède une référence à un autre objet appellé son prototype.
+En js, un objet possède une référence à un autre objet appelé son prototype.
 Celui-ci permet de mettre en place une relation d'héritage.
 
 Supposons la relation de prototype suivante : on définit $a$ comme une variable
@@ -443,10 +510,16 @@ js> a.v
 \end{verbatim}
 
 \subsubsection{Utilisation de la Scope Chain}
-variable globale utilisée dans une fonction?
-(var défine dans objet globale; quand new() crée
-objet en plus, si pas définie dans l'objet courant,
-remonte scope chain jusqu'éventuellement objet global).
+
+On utilise par exemple la variable \textit{coordonneesDepart}, qui est en
+ fait une propriété de l'objet \textit{global}, dans la fonction \textit{init} 
+ (\textit{js/carte.js:66}). 
+La définition de cette fonction est un objet. Ainsi, 
+quand on utilise la variable \textit{coordonneesDepart} dans cette fonction,
+on cherche s'il existe une propriété définie dans l'objet courant
+(la fonction).
+Comme ce n'est pas le cas, on remonte la scope chain et on trouve
+la propriété \textit{coordonneesDepart} dans l'objet \textit{global}.
 
 \subsubsection{Utilisation du mot-clé this}
 proposer\_trajet.php:98
