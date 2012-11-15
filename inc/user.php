@@ -23,7 +23,7 @@
 				AND	passwd	= :passwd");
 
 		$stmt->execute(array(':name' => $name,
-			':passwd' => $passwd));
+			':passwd' => hash('sha512', $passwd)));
 
 		$r = $stmt->fetch();
 
@@ -68,7 +68,7 @@
 
 		$stmt->execute(array(':name' => $name,
 			':email' => $email,
-			':passwd' => $passwd));
+			':passwd' => hash('sha512', $passwd)));
 
 		/* assume INSERT worked ;-) */
 		return true;
