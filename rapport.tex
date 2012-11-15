@@ -283,7 +283,50 @@ Pour réduire la probabilité d'une attaque de type MiM, on utilise un flux
 chiffré tel que HTTPS. Cela nous assure les propriétés de confidentialité
 et d'intégrité des paquets transmis.
 
-EXPLIQUER DEPLOIEMENT HTTPS
+Pour utiliser le protocole HTTPS, il faut activer SSL/TLS sur le serveur.
+Si celui-ci est de type Apache HTTP, on édite le fichier \textit{httpd.conf}. 
+
+On précise d'abord l'encryption utilisée. On ne veut pas utiliser d'encryption faible.
+\begin{verbatim}
+SSLProtocol all
+SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
+\end{verbatim}
+
+On définit un certificat et la clé RSA privée du serveur
+\begin{verbatim}
+SSLCertificateFile "/etc/ssl.crt/server.crt"
+SSLCertificateKeyFile "/etc/ssl.key/server.key"
+\end{verbatim}
+
+Le certificat que l'on a défini doit être vérifié par une autorité
+de certification externe, censée être définie dans le fichier de configuration du serveur.
+Ici, on se contente d'un certificat auto-délivré.
+Pour l'utilisateur, il y aura donc une incertitude quant à la provenance du certificat.
+Celui-ci pourrait très bien être fourni par un pirate.
+La vérification du certificat par une autorité de certification externe est donc primordiale
+dans la mise en place de HTTPS.
+
+Ci-dessous quelques captures après mise en place de SSL/TLS.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.4]{HTTPS.png}
+	\caption{\label{certif1} Demande d'ajout d'exception pour un certificat auto-délivré}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.5]{Fugu_HTTPS.png}
+	\caption{\label{certif2} Détails sur la connexion}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.3]{Certif.png}
+	\caption{\label{certif3} Détails certificat}
+\end{figure}
 
 \subsubsection{Prévention des \og Replay Attacks \fg}
 Les replay attacks permettent à un attaquant d'envoyer plusieurs fois un

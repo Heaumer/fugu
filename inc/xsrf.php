@@ -11,8 +11,7 @@ function generate_token() {
 function compare_token_with($token) {
 	if (!preg_match('/[a-f0-9]+/i', $token))
 		return false;
-
-	return ($_SESSION['token'] === $token) 
+	return ($_SESSION['token'] === $token);
 }
 
 ?>
