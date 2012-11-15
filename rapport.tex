@@ -356,6 +356,12 @@ Cela nous protège des attaques LFI.
 On n'inclut pas d'URL externe dans le code PHP.
 Par sécurité dans le fichier php.ini, on désactive l'option \textit{allow\_url\_include} 
 Cela nous protège des attaques RFI.
+
+\subsubsection{Prévention des attaques par distingueur}
+On utilise des systèmes de hashage \og robustes \fg, par exemple, on
+préfère SHA à MD5. Le générateur de nombre aléatoire utilisés est \textit{/dev/random}
+sous UNIX: en effet, bien que plus long que son homologue \texitit{/dev/urandom},
+il fournit des nombres \og plus \fg\ aléatoires.
 		
 \subsubsection{D'autres éléments de prévention}
 
