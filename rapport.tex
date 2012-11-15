@@ -53,7 +53,7 @@
   \vfil
   \begin{figure}[!ht]
   	\centering
-  	\includegraphics[scale=1]{imgs/fugu.png}
+  	\includegraphics[scale=1]{imgs/fugu_rapport.jpg}
   \end{figure}
   \vfil
   \vfil
@@ -139,7 +139,7 @@ autres passagers.
 
 \subsection{Proposition de trajet}
 
-En cliquant sur "Propose" sur le menu de navigation, l'utilisateur peut
+En cliquant sur \og Propose \fg sur le menu de navigation, l'utilisateur peut
 proposer un trajet comme dans la figure \ref{propose}. Au chargement,
 une carte apparaît avec une adresse de départ et une adresse d'arrivée
 par défaut. Pour indiquer son trajet, l'utilisateur a deux solutions 
@@ -171,7 +171,7 @@ bord où apparaît alors le trajet nouvellement créé.
 En cliquant sur \og Search \fg sur le menu de navigation, l'utilisateur
 peut chercher un trajet existant. Le principe est le même que pour la création
 de trajet à l'exception que l'utilisateur ne renseigne aucun champ de description.
-Après un clic sur le bouton \ og Search \fg, une liste de trajets est affichée. 
+Après un clic sur le bouton \og Search \fg, une liste de trajets est affichée. 
 
 \begin{figure}[!ht]
 	\centering
@@ -182,7 +182,7 @@ Après un clic sur le bouton \ og Search \fg, une liste de trajets est affichée
 
 Pour chaque trajet, on peut s'inscrire en tant que passager. Il faut
 noter que les trajets sur lesquels on s'est déjà inscrit ne figurent
-pas dans la recherche. Pour s'inscrire, on clique sur le bouton \og Join \fg
+pas dans la recherche. Pour s'inscrire, on clique sur le bouton \og join \fg
 en face du trajet. On est alors redirigé vers le tableau de bord où apparaît
 maintenant le trajet que l'on a rejoint.
 
@@ -209,23 +209,31 @@ chaque page un jeton (ou token), qui est stocké côté serveur,
 avec la fonction PHP  \textit{openssl\_random\_pseudo\_bytes()},
 qui est un générateur pseudo-aléatoire d'octets.
 
-Pour obtenir un service habituel, il faut préciser en mode GET
-ou POST le token obtenu. Le serveur vérifie que le paramètre
+Pour obtenir un service habituel, il faut préciser, selon les pages, en mode GET
+ou en mode POST le token obtenu. Le serveur vérifie que le paramètre
 (GET ou POST) est bien égal au token stocké côté serveur.
 Ainsi, si l'attaquant tente d'envoyer une requête sans connaître le
-token, il n'obtiendra pas le service.
+token et la façon d'envoyer le paramètre, il n'obtiendra pas le service.
 
 Par exemple, pour le service de proposition de trajet, la comparaison entre
 le token mis en mémoire sur le serveur et celui passé en paramètre se fait
-dans le fichier proposer\_trajet.php:54. Sur cette ligne, on appelle en
-fait la fonction compare token with définie dans le fichier
+dans le fichier \textit{proposer\_trajet.php:54}. Sur cette ligne, on appelle en
+fait la fonction \textit{compare\_token\_with()} définie dans le fichier
 inc/xsrf.php. Quant à la génération du nouveau token, elle se fait dans
-proposer\_trajet.php:57.  Sur cette ligne, on appelle la fonction
-generate\_token() définie dans le fichier inc/xsrf.php.
+\textit{proposer\_trajet.php:57}.  Sur cette ligne, on appelle la fonction
+\textit{generate\_token()} définie dans le fichier inc/xsrf.php.
+ 		
+Le fait de regénérer le token à chaque requête est gênant si on
+souhaite ouvrir deux onglets par exemple. En effet, l'une des deux
+pages ouvertes modifie le token enregistré côté serveur et pour l'autre
+page, la vérification échouera à cause de la désynchronisation.
+Un autre moyen de prévenir XSRF peut être de générer un token par
+session pour éviter ce genre de désagréments mais cette façon de faire
+est moins sûre.
  		
 \subsubsection{Prévention des attaques contre l'intégrité de la session}
-On souhaite éviter que l'utilisateur puisse modifier les données sensibles fournies par le serveur : celles-ci
-peuvent être stockées par exemple dans les cookies ou dans les champs hidden. 
+On souhaite éviter que l'utilisateur puisse modifier les données sensibles fournies par le serveur : 
+celles-ci peuvent être stockées par exemple dans les cookies ou dans les champs hidden. 
 Pour ce faire, on stocke côté serveur une empreinte
 HMAC de ces données. Cette empreinte est
 calculée grâce à deux entrées:
@@ -261,12 +269,12 @@ Pour une telle attaque, l'attaquant fixe le Session ID dans l'URL pour
 un autre utilisateur. Il envoie ensuite cette URL à l'utilisateur. Ce
 dernier s'authentifie et l'attaquant peut alors utiliser la session de
 l'utilisateur car il connait le SID. Pour prévenir cette attaque, il faut
-modifier le fichier php.ini :
+modifier le fichier \textit{php.ini} du serveur :
 
 \begin{itemize}
-	\item en activant l'option session.use\_only\_cookies afin que
+	\item en activant l'option \textit{session.use\_only\_cookies} afin que
 		le SID soit transmis exclusivement par cookie ;
-	\item en s'assurant que l'option session.use\_trans\_sid est désactivée. 
+	\item en s'assurant que l'option \textit{session.use\_trans\_sid} est désactivée. 
 	En la désactivant, on s'assure que les SID ne sont pas transmis par la méthode GET.
 \end{itemize}
 
@@ -292,12 +300,12 @@ n'est pas de confiance est interprété dans le navigateur du client.
 Il peut s'agir d'une redirection forcée pour faire  du phising
 ou d'un vol de cookie avec du Javascript.
 
-Pour protéger le vol de cookie, on active l'option session.cookie\_httponly
-dans le fichier php.ini. Cela permet de rendre les cookies HttpOnly,
+Pour protéger le vol de cookie, on active l'option \textit{session.cookie\_httponly}
+dans le fichier \textit{php.ini}. Cela permet de rendre les cookies HttpOnly,
 c'est-à-dire qu'ils ne seront pas accessibles par des langages de script
 tels que Javascript. Il faut également vérifier les données utilisateur
 comme dans le cas des attaques d'injections de code en retraitant le code
-HTML produit. Pour ce faire, on appelle la fonction hmlspecialchars.
+HTML produit. Pour ce faire, on appelle la fonction \textit{hmlspecialchars}.
  		
 \subsubsection{Prévention des attaques d'injection de code}
 La prévention des attaques d'injection de code passe par :
@@ -329,7 +337,7 @@ On veut éviter qu'un utilisateur insère un script Javascript dans un champ.
 Pour pallier ce problème, on transforme les caractères spéciaux du texte entré afin
 qu'un éventuel script Javascript deviennent du texte non interprété.
 Pour cela, on utilise la fonction sanitized d'\textit{inc/utils.php}. Cette fonction
-appelle la fonction PHP \textit{htmlspecialchars()}, \texitit{inc/utils.php:124}.
+appelle la fonction PHP \textit{htmlspecialchars()}, \textit{inc/utils.php:124}.
 		
 \subsubsection{Prévention des attaques RFI/LFI}
 		
@@ -344,7 +352,7 @@ Cela nous protège des attaques LFI.
 ~~\\
 \\
 On n'inclut pas d'URL externe dans le code PHP.
-Par sécurité dans le fichier php.ini, on désactive l'option allow\_url\_include 
+Par sécurité dans le fichier php.ini, on désactive l'option \textit{allow\_url\_include} 
 Cela nous protège des attaques RFI.
 		
 \subsubsection{D'autres éléments de prévention}
@@ -379,13 +387,13 @@ objet en plus, si pas définie dans l'objet courant,
 remonte scope chain jusqu'éventuellement objet global).
 
 \subsubsection{Utilisation du mot-clé this}
-proposer_trajet.php:98
+proposer\_trajet.php:98
 \subsubsection{Utilisation de la récursivité}
 \subsubsection{Manipulation du DOM}
 
 \subsection{Securité} 
 \subsubsection{Prévention des failles Javascript}
 iframe instead of script to avoid sharing global objects
-between mashup & trolol.
+between mashup \& trolol.
 
 \end{document}
